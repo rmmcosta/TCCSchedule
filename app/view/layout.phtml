@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TCCSantana Schedule</title>
+    <link rel="icon" 
+      type="image/png" 
+      href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="?page=home" class="<?php echo ($page=='home')?'nav--active':''?>"><i class="fas fa-home"></i>Início</a>
+            <a href="?page=schedules" class="<?php echo ($page=='schedules')?'nav--active':''?>"><i class="fas fa-calendar-check"></i>Marcações</a>
+            <a href="?page=workers" class="<?php echo ($page=='workers')?'nav--active':''?>"><i class="fas fa-male"></i>Funcionários</a>
+            <a href="?page=cars" class="<?php echo ($page=='cars')?'nav--active':''?>"><i class="fas fa-truck"></i>Carros</a>
+        </nav>
+    </header>
+    <section class="main">
+        <?php include($main_content); ?>
+    </section>
+</body>
+
+</html>

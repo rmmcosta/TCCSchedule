@@ -1,0 +1,28 @@
+<div class="text-right mb-2 mt-5">
+    <a href="?page=carsEdit"><button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i>Novo Carro</button></a>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Matrícula</th>
+                <th scope="col">Marca</th>
+                <th scope="col">Modelo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($cars AS $car) {
+                    echo '<tr class="table-row" data-href="?page=carsEdit&Id='.$car['Id'].'">';
+                    echo '<td>'.$car['Number'].'</td>';
+                    echo '<td>'.$car['Plate'].'</td>';
+                    echo '<td>'.$car['Maker'].'</td>';
+                    echo '<td>'.$car['Model'].'</td>';
+                    echo '</a>';
+                    echo '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+</div>

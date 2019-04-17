@@ -9,16 +9,17 @@
     $model = $config['MODEL_PATH'].$page.'.php';
     $view = $config['VIEW_PATH'].$page.'.phtml';
     $_404 = $config['VIEW_PATH'].'404.phtml';
+    $layout = $config['VIEW_PATH'].'sticky-footer-navbarLayout.phtml';
 
     if(file_exists($model)) { 
         require_once($model);
     }
 
+    $main_content = $_404;
+
     if(file_exists($view)) {
-        require_once($view);
+        $main_content = $view;
     }
 
-    else {
-        require_once($_404);
-    }
+    include($layout);
 ?>

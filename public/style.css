@@ -1,0 +1,103 @@
+body {
+    background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), url(home-slider.jpg) ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+nav {
+    background-image: linear-gradient(to right, #050f54 , #5d5d96);
+    padding: 2rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    text-underline-position: unset;
+    margin-right: 3rem;
+}
+
+nav i {
+    margin-right: 10px;
+}
+
+nav a:hover {
+    font-weight: 800;
+    border-bottom: 3px solid white;
+    padding-bottom: 3px;
+}
+
+show > .nav-link,
+.active > .nav-link,
+.nav-link.show,
+.nav-link.active {
+    font-weight: 800;
+    border-bottom: 3px solid white;
+    padding-bottom: 3px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,1);
+}
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255,255,255,1);
+}
+
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.footer {
+    background-color: #343a40;
+    color:white;
+}
+
+.footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+code {
+font-size: 80%;
+}
+
+@media screen and (min-width: 1600px) {
+    .container {
+        max-width: 1540px;
+    }
+}
+
+form {
+    border-radius: 5px;
+    padding: 10%;
+    background-color: #8a2be2b3;
+    color: white;
+}
+
+.table-violet {
+    background-color: #8a2be2b3;
+    color: white;
+}
+
+.table-row{
+    cursor:pointer;
+    }
+
+tbody {
+    background-color: #3366cc;
+}
+
+.table-dark.table-hover tbody tr:hover {
+    color: black;
+    background-color: #85a3e0;
+}
+
+i {
+    margin-right: 5px;
+}
+
+tr {
+    margin:5px 0px;
+}
