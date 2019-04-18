@@ -5,14 +5,19 @@ $(document).ready(function($) {
     });
 
     $(function() {
-        $('#datetimepicker1').datetimepicker();
+        $('#datetimepickerstart').datetimepicker({
+            locale: 'pt'
+        });
     });
 
     $(function() {
-        $('#datetimepicker2').datetimepicker();
+        $('#datetimepickerend').datetimepicker({
+            locale: 'pt'
+        });
     });
 
-    $(function () {
-        $('#datetimepicker4').datetimepicker();
-    });
+    // Material Select Initialization
+    $('#cars-multipleselect').multiselect();
+
+    $('#workers-multipleselect').multiselect();
 });

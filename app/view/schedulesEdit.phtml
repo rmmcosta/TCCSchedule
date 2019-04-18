@@ -1,47 +1,64 @@
 <div class="justify-content-center align-items-center">
     <form action="?page=schedulesEdit" method="post">
-        <div class="row justify-content-center align-items-center">
-            <div class="col text-center">
-                <img src="<?php echo $config["ICONS_PATH"].'icons8-user-100.png'?>" alt="funcionário">
-            </div>
-            <div class="col">
+        <div class="row">
+            <div class="col justify-content-center align-items-center">
                 <h1>Nova Marcação</h1>
-                <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <input type='text' class="form-control" id='datetimepicker4' />
-        </div>
-    </div>
-</div>
                 <div class="form-group">
                     <label for="start">Início</label>
-                    <div class='input-group date' id='datetimepicker1'>
-                        <input type="text" class="form-control" name="start" id="start"
-                            value="<?php echo (!empty($schedule["start"]))?$schedule["start"]:'';?>">
-                        <span class="input-group-append">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+                    <input type="text" class="form-control" name="start" id="datetimepickerstart"
+                        value="<?php echo (!empty($schedule["start"]))?$schedule["start"]:'';?>"
+                        placeholder="Selecione a data e a hora a que começa a mudança" required>
                 </div>
                 <div class="form-group">
                     <label for="end">Fim</label>
-                    <div class='input-group date' id='datetimepicker2'>
-                        <input type="text" class="form-control" name="end" id="end"
-                            value="<?php echo (!empty($schedule["end"]))?$schedule["end"]:'';?>">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+                    <input type="text" class="form-control" name="end" id="datetimepickerend"
+                        value="<?php echo (!empty($schedule["end"]))?$schedule["end"]:'';?>"
+                        placeholder="Selecione a data e a hora a que termina a mudança">
                 </div>
                 <div class="form-group">
                     <label for="address">Morada</label>
-                    <input type="address" class="form-control" name="address" id="address"
+                    <textarea class="form-control" name="address" id="address"
                         value="<?php echo (!empty($schedule["address"]))?$schedule["address"]:'';?>"
-                        placeholder="Introduza a morada">
+                        placeholder="Introduza a morada" required></textarea>
                 </div>
                 <input type="number" name="id" id="id" value="<?php echo $schedule["id"];?>" class="d-none">
-                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            <div class="col align-top">
+                <h1>Detalhe</h1>
+                <div class="form-group">
+                    <label for="cars">Carros</label>
+                    <div class="">
+                        <select name="cars[]" id="cars-multipleselect" class="" aria-labelledby="dropdownMenuButton"
+                            multiple="multiple" required>
+                            <?php
+                                foreach($dropDowns["carsAvailable"] AS $car) {
+                                    echo '<option value="'.$car["Id"].'">'.$car["Number"].' ( '.$car['Plate'].' '.$car['Maker'].' '.$car['Model'].' )</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="workers">Funcionários</label>
+                    <div class="">
+                        <select name="workers[]" id="workers-multipleselect" class="" aria-labelledby="dropdownMenuButton"
+                            multiple="multiple" required>
+                            <?php
+                                foreach($dropDowns["workersAvailable"] AS $worker) {
+                                    echo '<option value="'.$worker["Id"].'">'.$worker["Name"].'</option>';
+                                }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notas</label>
+                    <textarea class="form-control" name="notes" id="notes"
+                        value="<?php echo (!empty($schedule["notes"]))?$schedule["notes"]:'';?>"
+                        placeholder="Introduza as suas notas"></textarea>
+                </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>
