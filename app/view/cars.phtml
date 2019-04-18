@@ -25,4 +25,9 @@
             ?>
         </tbody>
     </table>
+    <?php            
+        if(empty($cars)){
+            echo '<tr><td><div class="blank-slate">Não há Carros registados...</div></td></tr>';
+        }
+    ?>
 </div>
