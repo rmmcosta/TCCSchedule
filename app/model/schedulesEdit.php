@@ -1,18 +1,19 @@
 <?php
     $redirect = '';
-    $worker='';
-    function createworker($workerData, $db){
+    $schedule='';
+    function createschedule($scheduleData, $db){
         $con = connectDB($db);
         $query='';
-        if(isset($workerData) && !empty($workerData)){
-            $query = "insert into workers(name,phone,email) values('"
-            .$workerData["name"]."','"
-            .$workerData["phone"]."','"
-            .$workerData["email"]."');";
+        if(isset($scheduleData) && !empty($scheduleData)){
+            $query = "insert into schedules(start,end,address,notes) values('"
+            .$scheduleData["start"]."','"
+            .$scheduleData["end"]."','"
+            .$scheduleData["address"]."','"
+            .$scheduleData["notes"]."');";
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
-            $redirect = 'location:?page=workers';
+            $redirect = 'location:?page=schedules';
         }
         if(!empty($con)) {
             mysqli_close($con);
@@ -22,18 +23,19 @@
         }
     }
 
-    function updateworker($workerData,$db) {
+    function updateschedule($scheduleData,$db) {
         $con = connectDB($db);
         $query='';
-        if(isset($workerData) && !empty($workerData)){
-            $query = "update workers set name='"
-            .$workerData["name"]."', phone='"
-            .$workerData["phone"]."', email='"
-            .$workerData["email"]."' where id =".$workerData["id"].";";
+        if(isset($scheduleData) && !empty($scheduleData)){
+            $query = "update schedules set start='"
+            .$scheduleData["start"]."', end='"
+            .$scheduleData["end"]."', address='"
+            .$scheduleData["address"]."', notes='"
+            .$scheduleData["notes"]."' where id =".$scheduleData["id"].";";
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
-            $redirect = 'location:?page=workers';
+            $redirect = 'location:?page=schedules';
         }
         if(!empty($con)) {
             mysqli_close($con);
@@ -43,38 +45,38 @@
         }
     }
 
-    function createOrUpdateworker($workerData,$db) {
-        if(empty($workerData['id'])) {
-            createworker($workerData,$db);
+    function createOrUpdateschedule($scheduleData,$db) {
+        if(empty($scheduleData['id'])) {
+            createschedule($scheduleData,$db);
         } else {
-            updateworker($workerData,$db);
+            updateschedule($scheduleData,$db);
         }
     }
 
-    function getworker($id,$db) {
+    function getschedule($id,$db) {
         $con = connectDB($db);
         $query='';
         if(isset($id) && !empty($id)){
-            $query = "Select id, name, phone, email from workers where id =".$id.";";
+            $query = "Select id, start, end, addres, notes from schedules where id =".$id.";";
         }
         if(!empty($query) && !empty($con)) {
             $result = mysqli_query($con,$query);
             $row=mysqli_fetch_assoc($result);
-            $worker=$row;
+            $schedule=$row;
             // Free result set
             mysqli_free_result($result);
         }
         if(!empty($con)) {
             mysqli_close($con);
         }
-        return $worker;
+        return $schedule;
     }
 
     if(isset($_POST)){
-        createOrUpdateworker($_POST,$db);
+        createOrUpdateschedule($_POST,$db);
     }
 
     if(!empty(get("Id"))) {
-        $worker=getworker(get("Id"),$db);
+        $schedule=getschedule(get("Id"),$db);
     }
 ?>

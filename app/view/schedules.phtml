@@ -1,0 +1,31 @@
+<div class="text-right mb-2 mt-5">
+    <a href="?page=schedulesEdit"><button type="button" class="btn btn-primary btn-sm"><i
+                class="fas fa-plus-circle"></i>Nova Marcação</button></a>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Início</th>
+                <th scope="col">Fim</th>
+                <th scope="col">Morada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($schedules AS $schedule) {
+                    echo '<tr class="table-row" data-href="?page=schedulesEdit&Id='.$schedule['Id'].'">';
+                    echo '<td>'.$schedule['Start'].'</td>';
+                    echo '<td>'.$schedule['End'].'</td>';
+                    echo '<td>'.$schedule['Address'].'</td>';
+                    echo '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+    <?php            
+        if(empty($schedules)){
+            echo '<tr><td><div class="blank-slate">Não há Marcações registadas...</div></td></tr>';
+        }
+    ?>
+</div>

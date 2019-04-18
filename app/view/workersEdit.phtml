@@ -8,15 +8,15 @@
             <h1>Novo Funcionário</h1>
             <div class="form-group">
                 <label for="name">Nome</label>
-                <input type="text" class="form-control" name="name" id="name"  value="<?php echo (!empty($worker["name"]))?$worker["name"]:'';?>" placeholder="Introduza o Nome">
+                <input maxlength="250" type="text" class="form-control" name="name" id="name"  value="<?php echo (!empty($worker["name"]))?$worker["name"]:'';?>" placeholder="Introduza o Nome" required>
             </div>
             <div class="form-group">
                 <label for="phone">Telefone/Telmóvel</label>
-                <input type="text" class="form-control" name="phone" id="phone"  value="<?php echo (!empty($worker["phone"]))?$worker["phone"]:'';?>" placeholder="Introduza o n.º de Telefone ou Telemóvel">
+                <input maxlength="9" type="text" class="form-control" name="phone" id="phone"  value="<?php echo (!empty($worker["phone"]))?$worker["phone"]:'';?>" placeholder="Introduza o n.º de Telefone ou Telemóvel">
             </div>
             <div class="form-group">
                 <label for="email">email</label>
-                <input type="email" class="form-control" name="email" id="email"  value="<?php echo (!empty($worker["email"]))?$worker["email"]:'';?>" placeholder="Introduza o email">
+                <input maxlength="50" type="email" class="form-control" name="email" id="email"  value="<?php echo (!empty($worker["email"]))?$worker["email"]:'';?>" placeholder="Introduza o email">
             </div>
             <input type="number" name="id" id="id" value="<?php echo $worker["id"];?>" class="d-none">
             <button type="submit" class="btn btn-primary">Guardar</button>

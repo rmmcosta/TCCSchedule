@@ -85,15 +85,6 @@ form {
     cursor:pointer;
     }
 
-tbody {
-    background-color: #3366cc;
-}
-
-.table-dark.table-hover tbody tr:hover {
-    color: black;
-    background-color: #85a3e0;
-}
-
 i {
     margin-right: 5px;
 }

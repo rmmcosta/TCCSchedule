@@ -8,20 +8,20 @@
             <h1>Novo Carro</h1>
             <div class="form-group">
                 <label for="plate">Matrícula</label>
-                <input type="text" class="form-control" name="plate" id="plate"  value="<?php echo (!empty($car["plate"]))?$car["plate"]:'';?>" placeholder="Introduza a matrícula">
+                <input maxlength="10" type="text" class="form-control" name="plate" id="plate"  value="<?php echo (!empty($car["plate"]))?$car["plate"]:'';?>" placeholder="Introduza a matrícula" required>
             </div>
             <div class="form-group">
                 <label for="maker">Marca</label>
-                <input type="text" class="form-control" name="maker" id="maker"  value="<?php echo (!empty($car["maker"]))?$car["maker"]:'';?>" placeholder="Introduza a marca">
+                <input maxlength="50" type="text" class="form-control" name="maker" id="maker"  value="<?php echo (!empty($car["maker"]))?$car["maker"]:'';?>" placeholder="Introduza a marca">
             </div>
             <div class="form-group">
                 <label for="model">Modelo</label>
-                <input type="text" class="form-control" name="model" id="model"  value="<?php echo (!empty($car["model"]))?$car["model"]:'';?>" placeholder="Introduza o modelo">
+                <input maxlength="50" type="text" class="form-control" name="model" id="model"  value="<?php echo (!empty($car["model"]))?$car["model"]:'';?>" placeholder="Introduza o modelo">
             </div>
             <div class="form-group">
                 <label for="number">Número</label>
-                <input type="number" class="form-control" name="number" id="number" value="<?php echo (!empty($car["number"]))?$car["number"]:'';?>" 
-                    placeholder="Introduza o número de identificação">
+                <input maxlength="4" type="number" class="form-control" name="number" id="number" value="<?php echo (!empty($car["number"]))?$car["number"]:'';?>" 
+                    placeholder="Introduza o número de identificação" required>
             </div>
             <input type="number" name="id" id="id" value="<?php echo (!empty($car))?$car["id"]:'';?>" class="d-none">
             <button type="submit" class="btn btn-primary">Guardar</button>
