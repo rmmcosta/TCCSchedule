@@ -15,4 +15,16 @@
         }
         return $con;
     }
+
+    function isArrayValueInArrayOfArray($arr,$val){
+        $check=false;
+        foreach($arr as $i){
+            foreach($i as $j){
+                $check=($j==$val[0])?true:false;
+                if($check)
+                    return true;
+            }
+        }
+        return false;
+    }
 ?>

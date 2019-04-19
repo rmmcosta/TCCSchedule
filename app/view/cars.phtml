@@ -2,13 +2,14 @@
     <a href="?page=carsEdit"><button type="button" class="btn btn-primary btn-sm"><i class="fas fa-plus-circle"></i>Novo Carro</button></a>
 </div>
 <div class="table-responsive">
-    <table class="table table-hover table-dark">
-        <thead>
+    <table class="table table-hover">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Matrícula</th>
                 <th scope="col">Marca</th>
                 <th scope="col">Modelo</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                     echo '<td>'.$car['Plate'].'</td>';
                     echo '<td>'.$car['Maker'].'</td>';
                     echo '<td>'.$car['Model'].'</td>';
+                    echo '<td class="text-danger"><a onclick="return confirm(\'Tem a certeza que pretende eliminar o carro?\')" title="Eliminar carro" href="?page=carsDelete&origin=cars&Id='.$car['Id'].'"><i class="text-danger fas fa-trash-alt"></i></a></td>';
                     echo '</tr>';
                 }
             ?>

@@ -1,38 +1,36 @@
 <div class="justify-content-center align-items-center">
     <form action="?page=schedulesEdit" method="post">
+        <h1>Nova Marcação</h1>
         <div class="row">
             <div class="col justify-content-center align-items-center">
-                <h1>Nova Marcação</h1>
                 <div class="form-group">
                     <label for="start">Início</label>
                     <input type="text" class="form-control" name="start" id="datetimepickerstart"
-                        value="<?php echo (!empty($schedule["start"]))?$schedule["start"]:'';?>"
+                        value="<?php echo (!empty($scheduleData["schedule"]["start"]))?date_format(date_create($scheduleData["schedule"]["start"]), 'd/m/Y H:i'):'';?>"
                         placeholder="Selecione a data e a hora a que começa a mudança" required>
                 </div>
                 <div class="form-group">
                     <label for="end">Fim</label>
                     <input type="text" class="form-control" name="end" id="datetimepickerend"
-                        value="<?php echo (!empty($schedule["end"]))?$schedule["end"]:'';?>"
+                        value="<?php echo (!empty($scheduleData["schedule"]["end"]))?date_format(date_create($scheduleData["schedule"]["end"]), 'd/m/Y H:i'):'';?>"
                         placeholder="Selecione a data e a hora a que termina a mudança">
                 </div>
                 <div class="form-group">
                     <label for="address">Morada</label>
                     <textarea class="form-control" name="address" id="address"
-                        value="<?php echo (!empty($schedule["address"]))?$schedule["address"]:'';?>"
-                        placeholder="Introduza a morada" required></textarea>
+                        placeholder="Introduza a morada" required><?php echo (!empty($scheduleData["schedule"]["address"]))?$scheduleData["schedule"]["address"]:'';?></textarea>
                 </div>
-                <input type="number" name="id" id="id" value="<?php echo $schedule["id"];?>" class="d-none">
+                <input type="number" name="id" id="id" value="<?php echo $scheduleData["schedule"]["id"];?>" class="d-none">
             </div>
             <div class="col align-top">
-                <h1>Detalhe</h1>
                 <div class="form-group">
                     <label for="cars">Carros</label>
                     <div class="">
                         <select name="cars[]" id="cars-multipleselect" class="" aria-labelledby="dropdownMenuButton"
                             multiple="multiple" required>
                             <?php
-                                foreach($dropDowns["carsAvailable"] AS $car) {
-                                    echo '<option value="'.$car["Id"].'">'.$car["Number"].' ( '.$car['Plate'].' '.$car['Maker'].' '.$car['Model'].' )</option>';
+                                foreach($scheduleData["carsAvailable"] AS $car) {
+                                    echo '<option '.((isArrayValueInArrayOfArray($scheduleData["scheduleCars"],[$car["Id"]]))?"selected":"").' value="'.$car["Id"].'">'.$car["Number"].' ( '.$car['Plate'].' '.$car['Maker'].' '.$car['Model'].' )</option>';
                                 }
                             ?>
                         </select>
@@ -44,8 +42,8 @@
                         <select name="workers[]" id="workers-multipleselect" class="" aria-labelledby="dropdownMenuButton"
                             multiple="multiple" required>
                             <?php
-                                foreach($dropDowns["workersAvailable"] AS $worker) {
-                                    echo '<option value="'.$worker["Id"].'">'.$worker["Name"].'</option>';
+                                foreach($scheduleData["workersAvailable"] AS $worker) {
+                                    echo '<option '.((isArrayValueInArrayOfArray($scheduleData["scheduleWorkers"],[$worker["Id"]]))?"selected":"").' value="'.$worker["Id"].'">'.$worker["Name"].'</option>';
                                 }
                             ?>
                         </select>
@@ -54,8 +52,7 @@
                 <div class="form-group">
                     <label for="notes">Notas</label>
                     <textarea class="form-control" name="notes" id="notes"
-                        value="<?php echo (!empty($schedule["notes"]))?$schedule["notes"]:'';?>"
-                        placeholder="Introduza as suas notas"></textarea>
+                        placeholder="Introduza as suas notas"><?php echo (!empty($scheduleData["schedule"]["notes"]))?$scheduleData["schedule"]["notes"]:'';?></textarea>
                 </div>
             </div>
         </div>

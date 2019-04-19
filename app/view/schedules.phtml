@@ -3,12 +3,13 @@
                 class="fas fa-plus-circle"></i>Nova Marcação</button></a>
 </div>
 <div class="table-responsive">
-    <table class="table table-hover table-dark">
-        <thead>
+    <table class="table table-hover">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">Início</th>
                 <th scope="col">Fim</th>
                 <th scope="col">Morada</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
                     echo '<td>'.$schedule['Start'].'</td>';
                     echo '<td>'.$schedule['End'].'</td>';
                     echo '<td>'.$schedule['Address'].'</td>';
+                    echo '<td class="text-danger">'.($schedule['IsCanceled']==1?"Cancelada</td>":'<a title="Cancelar marcação" onclick="return confirm(\'Tem a certeza que pretende cancelar a marcação?\')" href="?page=schedulesCancel&origin=schedules&Id='.$schedule['Id'].'"><i class="text-danger fas fa-times"></i></a></td>');
                     echo '</tr>';
                 }
             ?>

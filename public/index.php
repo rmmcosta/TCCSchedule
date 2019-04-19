@@ -13,6 +13,10 @@
 
     if(file_exists($model)) { 
         require_once($model);
+        if($page=='home'){
+            require(APPLICATION_PATH.DS.'model'.DS.'charts1.php');
+            require(APPLICATION_PATH.DS.'model'.DS.'charts2.php');
+        }
     }
 
     $main_content = $_404;
