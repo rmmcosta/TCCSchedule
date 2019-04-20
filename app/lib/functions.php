@@ -17,6 +17,9 @@
     }
 
     function isArrayValueInArrayOfArray($arr,$val){
+        if(empty($arr) || empty($val)){
+            return false;
+        }
         $check=false;
         foreach($arr as $i){
             foreach($i as $j){

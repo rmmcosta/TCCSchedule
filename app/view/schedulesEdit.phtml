@@ -7,7 +7,7 @@
                     <label for="start">Início</label>
                     <input type="text" class="form-control" name="start" id="datetimepickerstart"
                         value="<?php echo (!empty($scheduleData["schedule"]["start"]))?date_format(date_create($scheduleData["schedule"]["start"]), 'd/m/Y H:i'):'';?>"
-                        placeholder="Selecione a data e a hora a que começa a mudança" required>
+                        placeholder="Selecione a data e a hora a que começa a mudança" required onchange="carsMultipleRefresh()">
                 </div>
                 <div class="form-group">
                     <label for="end">Fim</label>
@@ -25,7 +25,7 @@
             <div class="col align-top">
                 <div class="form-group">
                     <label for="cars">Carros</label>
-                    <div class="">
+                    <div id="carsOptions">
                         <select name="cars[]" id="cars-multipleselect" class="" aria-labelledby="dropdownMenuButton"
                             multiple="multiple" required>
                             <?php
@@ -38,7 +38,7 @@
                 </div>
                 <div class="form-group">
                     <label for="workers">Funcionários</label>
-                    <div class="">
+                    <div id="workersOptions">
                         <select name="workers[]" id="workers-multipleselect" class="" aria-labelledby="dropdownMenuButton"
                             multiple="multiple" required>
                             <?php
