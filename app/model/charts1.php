@@ -1,6 +1,6 @@
 <?php
     $con = connectDB($db);
-    $sql='SELECT count(1) total, start FROM schedules where ifnull(IsCanceled,0) = 0 group by start ORDER BY start';
+    $sql='SELECT count(1) total, CAST(start AS DATE) start FROM schedules where ifnull(IsCanceled,0) = 0 group by CAST(start AS DATE) ORDER BY start';
     $result=mysqli_query($con,$sql);
     if (!$result)
     {
