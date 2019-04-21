@@ -14,9 +14,15 @@
         return;
     }
     $con = connectDB($db);
+    $scheduleId = get("Id");
     $sql="  SELECT * 
             FROM workers 
-            where id not in 
+            where ";
+    if(!empty($scheduleId)) {
+        $sql.="exists (Select 1 from scheduleWorkers where scheduleWorkers.WorkerId = workers.Id and scheduleWorkers.ScheduleId = $scheduleId)
+        or ";
+    }
+    $sql.="id not in 
                 (   select WorkerId 
                     from schedules 
                     inner join scheduleWorkers

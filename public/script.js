@@ -4,14 +4,17 @@ $(document).ready(function($) {
     });
 
     function findGetParameter(parameterName) {
-        var result = false,
-            tmp = [];
+        var result = new Object();
+        var tmp = [];
         location.search
             .substr(1)
             .split("&")
             .forEach(function (item) {
               tmp = item.split("=");
-              if (tmp[0] === parameterName) result = true;
+              if (tmp[0] === parameterName) {
+                result.exists = true;
+                result.value = tmp[1];
+              }
             });
         return result;
     }
@@ -83,6 +86,10 @@ $(document).ready(function($) {
         var datetimeStart = document.getElementById('datetimepickerstart').value;
         var datetimeEnd = document.getElementById('datetimepickerend').value;
         var queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
+        var result = findGetParameter('Id');
+        if(result.exists){
+            queryString+='&Id='+result.value;
+        }
         ajaxRequest.open("GET", "schedulesEditCarsByDate.php" + queryString, true);
         ajaxRequest.send(null); 
     }
@@ -126,6 +133,10 @@ $(document).ready(function($) {
         var datetimeStart = document.getElementById('datetimepickerstart').value;
         var datetimeEnd = document.getElementById('datetimepickerend').value;
         var queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
+        var result = findGetParameter('Id');
+        if(result.exists){
+            queryString+='&Id='+result.value;
+        }
         ajaxRequest.open("GET", "schedulesEditWorkersByDate.php" + queryString, true);
         ajaxRequest.send(null); 
     }
