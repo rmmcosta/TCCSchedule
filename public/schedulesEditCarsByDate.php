@@ -41,6 +41,23 @@
     // Associative arrays
     $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
     $cars=$allRows;
+
+    $scheduleCars = '';
+    if(!empty($scheduleId)) { 
+        $sql = 'Select CarId from scheduleCars where scheduleCars.ScheduleId = '.$scheduleId;
+        $result=mysqli_query($con,$sql);
+        if (!$result)
+        {
+            echo("Error description: " . mysqli_error($con));
+        }
+        // Associative arrays
+        $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
+    } else {
+        $allRows = '';
+    }
+
+    $scheduleCars = $allRows;
+
     // Free result set
     mysqli_free_result($result);
     mysqli_close($con);
@@ -49,7 +66,7 @@
     multiple="multiple" required>';
 
     foreach($cars AS $car) {
-        $displayMultiselect.='<option value="'.$car["Id"].'">'.$car["Number"].' ( '.$car['Plate'].' '.$car['Maker'].' '.$car['Model'].' )</option>';
+        $displayMultiselect.='<option '.((isArrayValueInArrayOfArray($scheduleCars,[$car["Id"]]))?"selected":"").' value="'.$car["Id"].'">'.$car["Number"].' ( '.$car['Plate'].' '.$car['Maker'].' '.$car['Model'].' )</option>';
     }
 
     $displayMultiselect.='</select>';
