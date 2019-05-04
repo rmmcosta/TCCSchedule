@@ -16,13 +16,23 @@
                         placeholder="Selecione a data e a hora a que termina a mudança">
                 </div>
                 <div class="form-group">
-                    <label for="address">Morada</label>
+                    <label for="address">Morada de carga</label>
                     <textarea class="form-control" name="address" id="address"
-                        placeholder="Introduza a morada" required><?php echo (!empty($scheduleData["schedule"]["address"]))?$scheduleData["schedule"]["address"]:'';?></textarea>
+                        placeholder="Introduza a morada de carga" required><?php echo (!empty($scheduleData["schedule"]["address"]))?$scheduleData["schedule"]["address"]:'';?></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="endaddress">Morada de descarga</label>
+                    <textarea class="form-control" name="endaddress" id="endaddress"
+                        placeholder="Introduza a morada de descarga" required><?php echo (!empty($scheduleData["schedule"]["endaddress"]))?$scheduleData["schedule"]["endaddress"]:'';?></textarea>
                 </div>
                 <input type="number" name="id" id="id" value="<?php echo $scheduleData["schedule"]["id"];?>" class="d-none">
             </div>
             <div class="col align-top">
+                <div class="form-group">
+                    <label for="client">Cliente</label>
+                    <textarea class="form-control" name="client" id="client"
+                        placeholder="Introduza o Cliente" required><?php echo (!empty($scheduleData["schedule"]["client"]))?$scheduleData["schedule"]["client"]:'';?></textarea>
+                </div>
                 <div class="form-group">
                     <label for="cars">Carros</label>
                     <div id="carsOptions">
