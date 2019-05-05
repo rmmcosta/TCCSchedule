@@ -1,7 +1,8 @@
 <?php
     date_default_timezone_set('Europe/Lisbon');
+    $currdatetime = date('d/m/Y h:i');
     $con = connectDB($db);
-    $sql='SELECT * FROM schedules where end>'.time().' and ifnull(IsCanceled,0) = 0 ORDER BY start desc';
+    $sql = "SELECT * FROM schedules where end>sysdate() and ifnull(IsCanceled,0) = 0 ORDER BY start desc;";
     $result=mysqli_query($con,$sql);
     if (!$result)
     {
@@ -13,7 +14,8 @@
     // Free result set
     mysqli_free_result($result);
 
-    $sql='SELECT * FROM schedules where start<='.time().' and end>='.time().' and ifnull(IsCanceled,0) = 0 ORDER BY start desc';
+    $sql="SELECT * FROM schedules where sysdate() between start and end and ifnull(IsCanceled,0) = 0 ORDER BY start desc;";
+    
     $result=mysqli_query($con,$sql);
     if (!$result)
     {

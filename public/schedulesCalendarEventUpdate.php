@@ -1,6 +1,13 @@
 <?php
     header('Content-Type: application/json');
 
+    //construct cars multiselect to use with ajax
+    defined("APPLICATION_PATH") || define("APPLICATION_PATH",realpath(dirname('__FILE__')) . '/../app');
+    const DS = DIRECTORY_SEPARATOR;
+
+    //inclue config file
+    require(APPLICATION_PATH.DS.'config'.DS.'config.php');
+
     $aResult = array();
 
     if( !isset($_POST['functionname']) ) { $aResult['error'] = 'No function name!'; }
@@ -15,7 +22,7 @@
                    $aResult['error'] = 'Error in arguments!';
                }
                else {
-                   $aResult['result'] = updateEventEnd($_POST['arguments'][0], $_POST['arguments'][1]);
+                   $aResult['result'] = updateEventEnd($_POST['arguments'][0], $_POST['arguments'][1],$db);
                }
                break;
             case 'updateEvent':
@@ -23,7 +30,7 @@
                    $aResult['error'] = 'Error in arguments!';
                }
                else {
-                   $aResult['result'] = updateEvent($_POST['arguments'][0], $_POST['arguments'][1], $_POST['arguments'][2]);
+                   $aResult['result'] = updateEvent($_POST['arguments'][0], $_POST['arguments'][1], $_POST['arguments'][2],$db);
                }
                break;
             default:
@@ -35,24 +42,38 @@
 
     echo json_encode($aResult);
 
-    function updateEventEnd($end, $id) {
+    function updateEventEnd($end, $id, $db) {
         $con = connectDB($db);
         $sql="update schedules set end = STR_TO_DATE('"
-        .$end."','%d/%m/%Y %H:%i') where id = $id";
-        $result=mysqli_query($con,$sql);
-        mysqli_free_result($result);
-        mysqli_close($con);
+        .$end."','%Y-%m-%d %H:%i:%s') where id = $id";
+        if(!empty($sql) && !empty($con)) {
+            $execute = mysqli_query($con,$sql);
+            if (!$execute)
+            {
+                return "Error description: " . mysqli_error($con);
+            }
+        }
+        if(!empty($con)) {
+            mysqli_close($con);
+        }
         return 'update succeed';
     }
 
-    function updateEvent($end, $start, $id) {
+    function updateEvent($start, $end, $id, $db) {
         $con = connectDB($db);
         $sql="update schedules set end = STR_TO_DATE('"
-        .$end."','%d/%m/%Y %H:%i'), start = STR_TO_DATE('"
-        .$start."','%d/%m/%Y %H:%i') where id = $id";
-        $result=mysqli_query($con,$sql);
-        mysqli_free_result($result);
-        mysqli_close($con);
+        .$end."','%Y-%m-%d %H:%i:%s'), start = STR_TO_DATE('"
+        .$start."','%Y-%m-%d %H:%i:%s') where id = $id";
+        if(!empty($sql) && !empty($con)) {
+            $execute = mysqli_query($con,$sql);
+            if (!$execute)
+            {
+                return "Error description: " . mysqli_error($con);
+            }
+        }
+        if(!empty($con)) {
+            mysqli_close($con);
+        }
         return 'update succeed';
     }
 ?>

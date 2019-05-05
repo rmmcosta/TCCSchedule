@@ -18,10 +18,30 @@
                 start:'".$schedule['start']."',  
                 end:'".$schedule['end']."', 
                 url:'?page=schedulesEdit&Id=".$schedule['id']."',
-                color: '".($schedule['iscanceled']?'gray':($schedule['start']>date('Y-m-d H:i:s')?'green':'#356cc4'))."',
-                editable:".($schedule['iscanceled']?'false':($schedule['start']>date('Y-m-d H:i:s')?'true':'false'))."
+                color: '".getColor($schedule['start'],$schedule['end'],$schedule['iscanceled'])."',
+                editable:".getIsEditable($schedule['start'],$schedule['end'],$schedule['iscanceled'])."
             }";
         }
         return $events;
+    }
+
+    function getIsEditable($startDate, $endDate, $isCanceled) {
+        if($isCanceled)
+            return 'false';
+        if($startDate>date('Y-m-d H:i:s'))
+            return 'true';
+        if($endDate>date('Y-m-d H:i:s'))
+            return 'true';
+        return 'false';
+    }
+
+    function getColor($startDate, $endDate, $isCanceled) {
+        if($isCanceled)
+            return 'gray';
+        if($startDate>date('Y-m-d H:i:s'))
+            return 'green';
+        if($endDate>date('Y-m-d H:i:s'))
+            return '#3c5630';
+        return '#356cc4';
     }
 ?>

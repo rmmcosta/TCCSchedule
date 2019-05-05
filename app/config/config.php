@@ -15,5 +15,7 @@
         "socket" => ""
     ];
 
+    date_default_timezone_set("Europe/Lisbon");
+
     require_once($config["LIB_PATH"].'functions.php');
 ?>
