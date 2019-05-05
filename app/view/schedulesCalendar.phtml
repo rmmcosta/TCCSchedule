@@ -1,7 +1,63 @@
 <div id='calendar-container'>
     <div id='calendar'></div>
 </div>
+<style>
+  .btn-group {
+    width:auto;
+  }
+  .btn-group>.btn {
+    width:auto;
+  }
+</style>
 <script>
+  function updateEventOnDB(info) {
+    var startDate = moment(info.event.start).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
+    var endDate = moment(info.event.end).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
+    var id = info.event.id;
+    console.log('here event update');
+    jQuery.ajax({
+      type: "POST",
+      url: 'schedulesCalendarEventUpdate.php',
+      dataType: 'json',
+      data: {functionname: 'updateEvent', arguments: [startDate,endDate,id]},
+
+      success: function (obj, textstatus) {
+                    if( !('error' in obj) ) {
+                        console.log(obj.result);
+                    }
+                    else {
+                        console.log(obj.error);
+                    }
+              }
+    });
+  }
+
+  function updateEventEndOnDB(info) {
+    var endDate = moment(info.event.end).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
+    var id = info.event.id;
+    console.log('here event end update');
+    jQuery.ajax({
+      type: "POST",
+      url: 'schedulesCalendarEventUpdate.php',
+      dataType: 'json',
+      data: {functionname: 'updateEventEnd', arguments: [endDate,id]},
+
+      success: function (obj, textstatus) {
+                    if( !('error' in obj) ) {
+                        console.log(obj.result);
+                    }
+                    else {
+                        console.log(obj.error);
+                    }
+              },
+      error: function() {
+        console.log('error');
+      },
+      complete: function() {
+        console.log('ajax finished');
+      }
+    });
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     function getEvents() {
@@ -11,7 +67,8 @@
     }
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list', 'bootstrap' ],
+      themeSystem: 'bootstrap',
       height: 'parent',
       header: {
         left: 'prev,next today',
@@ -23,7 +80,10 @@
       defaultDate: new Date(),
       navLinks: true, // can click day/week names to navigate views
       editable: true,
-      eventLimit: true, // allow "more" link when too many events
+      eventLimit: true, // allow "more" link when too many events,
+      eventOverlap: true,
+      eventResize: updateEventEndOnDB,
+      eventDrop: updateEventOnDB,
       events: getEvents()
     });
 
