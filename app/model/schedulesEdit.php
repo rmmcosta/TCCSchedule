@@ -68,7 +68,7 @@
             $scheduleId = mysqli_insert_id($con);
             createScheduleCars($scheduleData['cars'],$con,$scheduleId);
             createScheduleWorkers($scheduleData['workers'],$con,$scheduleId);
-            $redirect = 'location:?page=schedulesCalendar';
+            $redirect = 'location:?page=home';
         }
         if(!empty($con)) {
             mysqli_close($con);
@@ -100,7 +100,7 @@
             deleteScheduleWorkers($scheduleData["id"],$con);
             createScheduleCars($scheduleData['cars'],$con,$scheduleData["id"]);
             createScheduleWorkers($scheduleData['workers'],$con,$scheduleData["id"]);
-            $redirect = 'location:?page=schedulesCalendar';
+            $redirect = 'location:?page=home';
         }
         if(!empty($con)) {
             mysqli_close($con);

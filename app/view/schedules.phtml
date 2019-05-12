@@ -1,8 +1,4 @@
-<div class="text-right mb-2 mt-5">
-    <a href="?page=schedulesEdit"><button type="button" class="btn btn-primary btn-sm"><i
-                class="fas fa-plus-circle"></i>Nova Marcação</button></a>
-</div>
-<div class="table-responsive">
+<div class="table-responsive mt-3">
     <table class="table table-hover">
         <thead class="thead-dark">
             <tr>
@@ -19,7 +15,7 @@
                     echo '<td>'.$schedule['Start'].'</td>';
                     echo '<td>'.$schedule['End'].'</td>';
                     echo '<td>'.$schedule['Address'].'</td>';
-                    echo '<td class="text-danger">'.($schedule['IsCanceled']==1?"Cancelada</td>":'<a title="Cancelar marcação" onclick="return confirm(\'Tem a certeza que pretende cancelar a marcação?\')" href="?page=schedulesCancel&origin=schedules&Id='.$schedule['Id'].'"><i class="text-danger fas fa-times"></i></a></td>');
+                    echo '<td class="text-danger">'.($schedule['IsCanceled']==1?"Cancelada</td>":'<a title="Cancelar Mudança" onclick="return confirm(\'Tem a certeza que pretende cancelar a Mudança?\')" href="?page=schedulesCancel&origin=schedules&Id='.$schedule['Id'].'"><i class="text-danger fas fa-times"></i></a></td>');
                     echo '</tr>';
                 }
             ?>

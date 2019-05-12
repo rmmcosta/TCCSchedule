@@ -1,36 +1,48 @@
 <?php
-    date_default_timezone_set('Europe/Lisbon');
-    $currdatetime = date('d/m/Y h:i');
-    $con = connectDB($db);
-    $sql = "SELECT * FROM schedules where end>sysdate() and ifnull(IsCanceled,0) = 0 ORDER BY start desc;";
-    $result=mysqli_query($con,$sql);
-    if (!$result)
-    {
-        echo("Error description: " . mysqli_error($con));
-    }
-    // Associative arrays
-    $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    $schedulesFuture=$allRows;
-    // Free result set
-    mysqli_free_result($result);
+    function getSchedulesCalendar($db) {
+        $con = connectDB($db);
+        $sql="SELECT id, client, start, iscanceled, end, Address, EndAddress FROM schedules";
+        $result=mysqli_query($con,$sql);
+        // Associative arrays
+        $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
+        $schedules=$allRows;
+        // Free result set
+        mysqli_free_result($result);
 
-    $sql="SELECT * FROM schedules where sysdate() between start and end and ifnull(IsCanceled,0) = 0 ORDER BY start desc;";
-    
-    $result=mysqli_query($con,$sql);
-    if (!$result)
-    {
-        echo("Error description: " . mysqli_error($con));
-    }
-    // Associative arrays
-    $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
-    $schedulesOnGoing=$allRows;
-    // Free result set
-    mysqli_free_result($result);
+        mysqli_close($con);
+        $events = "{}";
 
-    mysqli_close($con);
-    $schedules = [
-        "future" => $schedulesFuture,
-        "ongoing" => $schedulesOnGoing
-    ];
-    return $schedules;
+        foreach($schedules as $schedule) {
+            $events.=",{id:'".$schedule['id']."',
+                title:'".$schedule['client']."',
+                description:'De:".preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['Address']).'\nPara:'.preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['EndAddress'])."', 
+                start:'".$schedule['start']."',  
+                end:'".$schedule['end']."', 
+                url:'?page=schedulesEdit&Id=".$schedule['id']."',
+                color: '".getColor($schedule['start'],$schedule['end'],$schedule['iscanceled'])."',
+                editable:".getIsEditable($schedule['start'],$schedule['end'],$schedule['iscanceled'])."
+            }";
+        }
+        return $events;
+    }
+
+    function getIsEditable($startDate, $endDate, $isCanceled) {
+        if($isCanceled)
+            return 'false';
+        if($startDate>date('Y-m-d H:i:s'))
+            return 'true';
+        if($endDate>date('Y-m-d H:i:s'))
+            return 'true';
+        return 'false';
+    }
+
+    function getColor($startDate, $endDate, $isCanceled) {
+        if($isCanceled)
+            return 'gray';
+        if($startDate>date('Y-m-d H:i:s'))
+            return 'green';
+        if($endDate>date('Y-m-d H:i:s'))
+            return '#28a745';
+        return '#356cc4';
+    }
 ?>

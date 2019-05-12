@@ -4,7 +4,8 @@
 
     //inclue config file
     require(APPLICATION_PATH.DS.'config'.DS.'config.php');
-
+    date_default_timezone_set('Europe/Lisbon');
+    $currdatetime = date('d/m/Y h:i');
     $page = get("page","home");
     $model = $config['MODEL_PATH'].$page.'.php';
     $view = $config['VIEW_PATH'].$page.'.phtml';
@@ -13,7 +14,7 @@
 
     if(file_exists($model)) { 
         require_once($model);
-        if($page=='home'){
+        if($page=='resume'){
             require(APPLICATION_PATH.DS.'model'.DS.'charts1.php');
             require(APPLICATION_PATH.DS.'model'.DS.'charts2.php');
         }
