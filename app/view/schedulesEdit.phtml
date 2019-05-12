@@ -4,6 +4,11 @@
         <div class="row">
             <div class="col justify-content-center align-items-center">
                 <div class="form-group">
+                    <label for="client">Cliente</label>
+                    <textarea class="form-control" name="client" id="client"
+                        placeholder="Introduza o Cliente" required><?php echo (!empty($scheduleData["schedule"]["client"]))?$scheduleData["schedule"]["client"]:'';?></textarea>
+                </div>
+                <div class="form-group">
                     <label for="start">Início</label>
                     <input type="text" class="form-control" name="start" id="datetimepickerstart"
                         value="<?php echo (!empty($scheduleData["schedule"]["start"]))?date_format(date_create($scheduleData["schedule"]["start"]), 'd/m/Y H:i'):'';?>"
@@ -29,9 +34,9 @@
             </div>
             <div class="col align-top">
                 <div class="form-group">
-                    <label for="client">Cliente</label>
-                    <textarea class="form-control" name="client" id="client"
-                        placeholder="Introduza o Cliente" required><?php echo (!empty($scheduleData["schedule"]["client"]))?$scheduleData["schedule"]["client"]:'';?></textarea>
+                    <label for="nif">NIF</label>
+                    <input type="number" class="form-control" name="nif" id="nif" value="<?php echo (!empty($scheduleData["schedule"]["nif"]))?$scheduleData["schedule"]["nif"]:'';?>"
+                        placeholder="Introduza o NIF" required>
                 </div>
                 <div class="form-group">
                     <label for="cars">Carros</label>
@@ -64,6 +69,13 @@
                     <textarea class="form-control" name="notes" id="notes"
                         placeholder="Introduza as suas notas"><?php echo (!empty($scheduleData["schedule"]["notes"]))?$scheduleData["schedule"]["notes"]:'';?></textarea>
                 </div>
+                <div class="checkbox">
+                    <label style="font-size: 2.5em">
+                    <input type="checkbox" class="custom-control-input" name="ispaid" id="ispaid"<?php echo (!empty($scheduleData["schedule"]["ispaid"])?'checked':'')?>>
+                    <span class="cr"><i class="cr-icon fas fa-euro-sign"></i></span>
+                    Pago
+            </label>
+        </div>
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>

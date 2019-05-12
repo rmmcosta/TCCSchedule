@@ -51,12 +51,14 @@
         $con = connectDB($db);
         $query='';
         if(isset($scheduleData) && !empty($scheduleData)){
-            $query = "insert into schedules(start,end,address,endaddress,client,notes) values(STR_TO_DATE('"
+            $query = "insert into schedules(start,end,address,endaddress,client,nif,ispaid,notes) values(STR_TO_DATE('"
             .$scheduleData["start"]."','%d/%m/%Y %H:%i'),STR_TO_DATE('"
             .$scheduleData["end"]."','%d/%m/%Y %H:%i'),'"
             .$scheduleData["address"]."','"
             .$scheduleData["endaddress"]."','"
             .$scheduleData["client"]."','"
+            .$scheduleData["nif"]."',"
+            .($scheduleData["ispaid"]=='on'?1:0).",'"
             .$scheduleData["notes"]."');";
         }
         if(!empty($query) && !empty($con)) {
@@ -86,8 +88,10 @@
             .$scheduleData["start"]."','%d/%m/%Y %H:%i'),end=STR_TO_DATE('"
             .$scheduleData["end"]."','%d/%m/%Y %H:%i'),address='"
             .$scheduleData["address"]."', notes='"
-            .$scheduleData["notes"]."', endaddress='"
-            .$scheduleData["endaddress"]."', client='"
+            .$scheduleData["notes"]."', nif='"
+            .$scheduleData["nif"]."', endaddress='"
+            .$scheduleData["endaddress"]."', ispaid="
+            .($scheduleData["ispaid"]=='on'?1:0).", client='"
             .$scheduleData["client"]."' where id =".$scheduleData["id"].";";
         }
         if(!empty($query) && !empty($con)) {
@@ -122,7 +126,7 @@
         $con = connectDB($db);
         $query='';
         if(isset($id) && !empty($id)){
-            $query = "Select id, start, end, address, notes, endaddress, client from schedules where id =".$id.";";
+            $query = "Select id, start, end, address, notes, endaddress, client, nif, ispaid from schedules where id =".$id.";";
         }
         if(!empty($query) && !empty($con)) {
             $result = mysqli_query($con,$query);
