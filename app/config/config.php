@@ -8,8 +8,8 @@
 
     $db = [
         "host" => "localhost",
-        "username" => "ricardo",
-        "password" => "",
+        "username" => "rmmcosta",
+        "password" => "914423167",
         "dbname" => "TCCSchedule",
         "port" => "3306",
         "socket" => ""
