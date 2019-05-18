@@ -374,3 +374,11 @@ nav .page-item a:hover {
 .card-body {
   padding: 1rem 0 .5rem 0;
 }
+
+#calendar button {
+  margin-left: 0;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  font-size: 12px;
+}

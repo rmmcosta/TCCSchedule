@@ -9,8 +9,8 @@
     </div>
     <!--end of col-->
     <div class="col-sm-5">
-        <button class="btn btn-success" type="submit">Pesquisar</button>
-        <button class="btn btn bg-light" type="submit">Limpar</button>
+        <button class="btn btn-primary" name="submitbutton" value="search" type="submit">Pesquisar</button>
+        <button name="submitbutton" value="clear" class="btn btn bg-light" type="submit">Limpar</button>
     </div>
     <!--end of col-->
 </div>
@@ -21,7 +21,8 @@
             <tr>
                 <th scope="col">Início</th>
                 <th scope="col">Fim</th>
-                <th scope="col">Morada</th>
+                <th scope="col">Carga</th>
+                <th scope="col">Descarga</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                     echo '<td>'.$schedule['Start'].'</td>';
                     echo '<td>'.$schedule['End'].'</td>';
                     echo '<td>'.$schedule['Address'].'</td>';
+                    echo '<td>'.$schedule['EndAddress'].'</td>';
                     echo '<td class="text-danger">'.($schedule['IsCanceled']==1?"Cancelada</td>":'<a title="Cancelar Mudança" onclick="return confirm(\'Tem a certeza que pretende cancelar a Mudança?\')" href="?page=schedulesCancel&origin=schedules&Id='.$schedule['Id'].'"><i class="text-danger fas fa-times"></i></a></td>');
                     echo '</tr>';
                 }

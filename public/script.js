@@ -21,7 +21,12 @@ $(document).ready(function($) {
 
     $(function() {
         $('#datetimepickerstart').datetimepicker({
-            locale: 'pt'
+            locale: 'pt',
+            useCurrent: 'hour',
+            widgetPositioning: {
+                horizontal: "auto",
+                vertical: "auto"
+              }
         });
     });
 
@@ -32,7 +37,12 @@ $(document).ready(function($) {
 
     $(function() {
         $('#datetimepickerend').datetimepicker({
-            locale: 'pt'
+            locale: 'pt',
+            useCurrent: 'hour',
+            widgetPositioning: {
+                horizontal: "auto",
+                vertical: "auto"
+              }
         });
     });
 

@@ -99,6 +99,9 @@
       },
       displayEventTime:true,
       displayEventEnd:true,
+      eventAllow: function(){
+        return true;
+      }, // to be reviewed. we should have a function to validate this
       locale:'pt',
       defaultView: 'dayGridWeek',
       firstDay: (new Date().getDay())-1,

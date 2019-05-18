@@ -1,7 +1,7 @@
 <?php
     $listpage = (empty($_GET['listpage'])?$tablelist['defaultpage']:$_GET['listpage']);
     $linecount = (empty($_GET['linecount'])?$tablelist['defaultlinecount']:$_GET['linecount']);
-    $search = $_POST['search'];
+    $search = $_POST['submitbutton']=='clear'?'':$_POST['search'];
     $con = connectDB($db);
     $sql="SELECT * FROM workers 
             where name like '%".$search."%'

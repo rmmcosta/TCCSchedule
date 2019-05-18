@@ -89,9 +89,15 @@
                     include('feedback.phtml');
             ?>
             <script type="text/javascript">
+                
                 setInterval(function(){
                     $(".alert.show").removeClass('show');
                 },3000);
+
+                function autosubmit(submitbutton){
+                    $('#'+submitbutton).click();
+                }
+
             </script>
             <?php include($main_content); ?>
         </div>

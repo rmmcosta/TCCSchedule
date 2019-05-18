@@ -71,13 +71,13 @@
                 </div>
                 <div class="checkbox">
                     <label style="font-size: 2.5em">
-                    <input type="checkbox" class="custom-control-input" name="ispaid" id="ispaid"<?php echo (!empty($scheduleData["schedule"]["ispaid"])?'checked':'')?>>
+                    <input onchange="autosubmit('schedulesubmit');" type="checkbox" class="custom-control-input" name="ispaid" id="ispaid"<?php echo (!empty($scheduleData["schedule"]["ispaid"])?'checked':'')?>>
                     <span class="cr"><i class="cr-icon fas fa-euro-sign"></i></span>
                     Pago
             </label>
         </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button id="schedulesubmit" type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </div>
