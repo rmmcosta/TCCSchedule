@@ -1,7 +1,24 @@
-<div class="text-right mb-2 mt-1">
-    <a href="?page=workersEdit"><button type="button" class="btn btn-primary btn-sm"><i
+<form action="?page=workers" method="post">
+<div class="mt-1 card-body row no-gutters align-items-center">
+    <div class="col-auto">
+        <i class="fas fa-search h5 text-body"></i>
+    </div>
+    <!--end of col-->
+    <div class="col-sm-4">
+        <input value="<?php echo $search?>" name="search" id="search" class="form-control form-control-borderless" type="search" placeholder="Indique um critério de pesquisa...">
+    </div>
+    <!--end of col-->
+    <div class="col-sm-5">
+        <button class="btn btn-success" type="submit">Pesquisar</button>
+        <button class="btn btn bg-light" type="submit">Limpar</button>
+    </div>
+    <!--end of col-->
+    <div class="col-sm-2 text-right">
+        <a href="?page=workersEdit"><button type="button" class="btn btn-primary btn-sm"><i
                 class="fas fa-plus-circle"></i>Novo Funcionário</button></a>
+    </div>
 </div>
+</form>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead class="thead-dark">
@@ -14,7 +31,7 @@
         </thead>
         <tbody>
             <?php
-                foreach($workers AS $worker) {
+                foreach($workers['list'] AS $worker) {
                     echo '<tr class="table-row" data-href="?page=workersEdit&Id='.$worker['Id'].'">';
                     echo '<td>'.$worker['Name'].'</td>';
                     echo '<td>'.$worker['Phone'].'</td>';
@@ -30,4 +47,32 @@
             echo '<tr><td><div class="blank-slate">Não há Funcionários registados...</div></td></tr>';
         }
     ?>
+
+    <nav aria-label="Page navigation" class="pagination-nav">
+        <ul class="pagination">
+            <?php 
+                $maxpage = ceil($workers['count']/$linecount);
+                if($listpage>0){
+                    echo '<li class="page-item">
+                    <a class="page-link" href="?page=workers&listpage='.($listpage-1).'" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    </li>';
+                }
+                for($i=1;$i<=$maxpage;$i++){
+                    echo '<li class="page-item"><a class="page-link '.($i==$listpage+1?'page-link-active':'').'" href="?page=workers&listpage='.($i-1).'">'.$i.'</a></li>';
+                }
+                if(($listpage+1)<$maxpage){
+                    echo '
+                    <li class="page-item">
+                    <a class="page-link" href="?page=workers&listpage='.($listpage+1).'" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </li>';
+                }
+            ?>
+        </ul>
+    </nav>
 </div>
