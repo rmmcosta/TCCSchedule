@@ -12,7 +12,8 @@
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
-            $redirect = 'location:?page=workers';
+            $feedbackmessage = 'Funcionário <strong>'.$workerData["name"].'</strong> criado com <strong>sucesso</strong>';
+            $redirect = 'location:?page=workers&message='.$feedbackmessage.'&type=success';
         }
         if(!empty($con)) {
             mysqli_close($con);
@@ -33,7 +34,8 @@
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
-            $redirect = 'location:?page=workers';
+            $feedbackmessage = 'Funcionário <strong>'.$workerData["name"].'</strong> atualizado com <strong>sucesso</strong>';
+            $redirect = 'location:?page=workers&message='.$feedbackmessage.'&type=success';
         }
         if(!empty($con)) {
             mysqli_close($con);

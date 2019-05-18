@@ -84,11 +84,20 @@
     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0">
         <div class="container">
+            <?php
+                if(!empty($_GET['message']))
+                    include('feedback.phtml');
+            ?>
+            <script type="text/javascript">
+                setInterval(function(){
+                    $(".alert.show").removeClass('show');
+                },3000);
+            </script>
             <?php include($main_content); ?>
         </div>
     </main>
 
-    <footer class="footer mt-auto py-3">
+    <footer class="footer mt-auto py-3 fixed-bottom">
         <div class="container">
             <span>&copy Transportadora do Campo Santana</span>
         </div>

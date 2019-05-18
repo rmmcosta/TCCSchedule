@@ -13,7 +13,8 @@
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
-            $redirect = 'location:?page=cars';
+            $feedbackmessage = 'Carro <strong>'.$carData["number"].'</strong> criado com <strong>sucesso</strong>';
+            $redirect = 'location:?page=cars&message='.$feedbackmessage.'&type=success';
         }
         if(!empty($con)) {
             mysqli_close($con);
@@ -35,7 +36,8 @@
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
-            $redirect = 'location:?page=cars';
+            $feedbackmessage = 'Carro <strong>'.$carData["number"].'</strong> atualizado com <strong>sucesso</strong>';
+            $redirect = 'location:?page=cars&message='.$feedbackmessage.'&type=success';
         }
         if(!empty($con)) {
             mysqli_close($con);

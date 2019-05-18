@@ -1,3 +1,15 @@
+<div class="alert alert-success alert-dismissible fade" role="alert">
+    Mudança atualizada com <strong>sucesso</strong>!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="alert alert-danger alert-dismissible fade" role="alert">
+    Ocorreu um erro na atualização da mudança!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
 <div id='calendar-container'>
     <div id='calendar'></div>
 </div>
@@ -14,7 +26,6 @@
     var startDate = moment(info.event.start).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
     var endDate = moment(info.event.end).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
     var id = info.event.id;
-    console.log('here event update');
     jQuery.ajax({
       type: "POST",
       url: 'schedulesCalendarEventUpdate.php',
@@ -24,9 +35,11 @@
       success: function (obj, textstatus) {
                     if( !('error' in obj) ) {
                         console.log(obj.result);
+                        $('.alert-success').addClass('show');
                     }
                     else {
                         console.log(obj.error);
+                        $('.alert-danger').addClass('show');
                     }
               }
     });
@@ -35,7 +48,6 @@
   function updateEventEndOnDB(info) {
     var endDate = moment(info.event.end).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
     var id = info.event.id;
-    console.log('here event end update');
     jQuery.ajax({
       type: "POST",
       url: 'schedulesCalendarEventUpdate.php',
@@ -45,10 +57,11 @@
       success: function (obj, textstatus) {
                     if( !('error' in obj) ) {
                         console.log(obj.result);
+                        $('.alert-success').addClass('show');
                     }
                     else {
-                      console.log("cenas");
                         console.log(obj.error);
+                        $('.alert-danger').addClass('show');
                     }
               },
       error: function(jqXHR, textStatus, errorThrown ) {

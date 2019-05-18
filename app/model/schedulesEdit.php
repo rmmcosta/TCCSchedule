@@ -70,7 +70,8 @@
             $scheduleId = mysqli_insert_id($con);
             createScheduleCars($scheduleData['cars'],$con,$scheduleId);
             createScheduleWorkers($scheduleData['workers'],$con,$scheduleId);
-            $redirect = 'location:?page=home';
+            $feedbackmessage = 'Mudança criada para <strong>'.$scheduleData["client"].'</strong> com <strong>sucesso</strong>';
+            $redirect = 'location:?page=home&message='.$feedbackmessage.'&type=success';
         }
         if(!empty($con)) {
             mysqli_close($con);
@@ -104,7 +105,8 @@
             deleteScheduleWorkers($scheduleData["id"],$con);
             createScheduleCars($scheduleData['cars'],$con,$scheduleData["id"]);
             createScheduleWorkers($scheduleData['workers'],$con,$scheduleData["id"]);
-            $redirect = 'location:?page=home';
+            $feedbackmessage = 'Mudança de <strong>'.$scheduleData["client"].'</strong> atualizada com <strong>sucesso</strong>';
+            $redirect = 'location:?page=home&message='.$feedbackmessage.'&type=success';
         }
         if(!empty($con)) {
             mysqli_close($con);

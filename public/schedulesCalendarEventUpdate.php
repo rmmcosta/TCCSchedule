@@ -56,6 +56,8 @@
         if(!empty($con)) {
             mysqli_close($con);
         }
+        $_GET['message']="Mudança atualizada";
+        $_GET['type']="success";
         return 'update succeed';
     }
 
@@ -74,6 +76,8 @@
         if(!empty($con)) {
             mysqli_close($con);
         }
+        $_GET['message']="Mudança atualizada";
+        $_GET['type']="success";
         return 'update succeed';
     }
 ?>

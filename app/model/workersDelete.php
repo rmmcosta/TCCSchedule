@@ -8,7 +8,8 @@
             echo("Error description: " . mysqli_error($con));
         }
         mysqli_close($con);
-        $redirect = 'location:?page='.$origin;
+        $feedbackmessage = 'Funcionário <strong>eliminado</strong>';
+        $redirect = 'location:?page='.$origin.'&message='.$feedbackmessage.'&type=success';
         header($redirect);
     }  
 

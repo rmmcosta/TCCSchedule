@@ -63,7 +63,7 @@ font-size: 80%;
 
 form {
     border-radius: 5px;
-    padding: 10%;
+    padding: 1%;
     background-color: white;
     color: black;
 }
@@ -306,4 +306,15 @@ tr {
     content: "\f153";
     margin-left: 4px;
     color: green;
+}
+
+.alert {
+  position: fixed;
+  left: 5%;
+  width: 90%;
+  text-align: center;
+}
+
+.alert.show{
+  z-index:1000;
 }
