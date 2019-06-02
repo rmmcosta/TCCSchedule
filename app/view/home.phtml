@@ -1,18 +1,35 @@
-<div class="alert alert-success alert-dismissible fade" role="alert">
-    Mudança atualizada com <strong>sucesso</strong>!
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
 </div>
-<div class="alert alert-danger alert-dismissible fade" role="alert">
-    Ocorreu um erro na atualização da mudança!
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+
+<!-- Use any element to open the sidenav -->
+<div class="sidenav-open">
+  <span onclick="openNav()"><i class="fas fa-angle-double-left"></i></span>
 </div>
-<div id='calendar-container' class="mb-5">
-    <div id='calendar'></div>
-</div>
+
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
+  <div class="alert alert-success alert-dismissible fade" role="alert">
+      Mudança atualizada com <strong>sucesso</strong>!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="alert alert-danger alert-dismissible fade" role="alert">
+      Ocorreu um erro na atualização da mudança!
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div id='calendar-container' class="mb-5">
+      <div id='calendar'></div>
+  </div>
+</div> 
+
 <style>
   .btn-group {
     width:auto;
@@ -22,6 +39,17 @@
   }
 </style>
 <script>
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "20%";
+      $("#calendar").addClass('calendar-short');
+    }
+    
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      $("#calendar").removeClass('calendar-short');
+    }
   function updateEventOnDB(info) {
     var startDate = moment(info.event.start).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
     var endDate = moment(info.event.end).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
@@ -86,16 +114,16 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list', 'bootstrap' ],
       themeSystem: 'bootstrap',
-      height: 'parent',
       views: {
-        timeGridWeek: {
-          buttonText: 'Semana Hora a Hora'
+        dayGridMonth: {
+          eventLimit: 10 // adjust to 6 only for timeGridWeek/timeGridDay
         }
       },
+      height: 'parent',
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,dayGridWeek,timeGridWeek,timeGridDay,listŴeek'
+        right: 'dayGridMonth,dayGridWeek,dayGridDay,listWeek'
       },
       displayEventTime:true,
       displayEventEnd:true,
@@ -103,7 +131,7 @@
         return true;
       }, // to be reviewed. we should have a function to validate this
       locale:'pt',
-      defaultView: 'dayGridWeek',
+      defaultView: 'dayGridDay',
       firstDay: (new Date().getDay())-1,
       scrollTime: scrollTime,
       nowIndicator: true,
@@ -112,6 +140,9 @@
       editable: true,
       eventLimit: true, // allow "more" link when too many events,
       eventOverlap: true,
+      selectMirror: true,
+      selectable: true,
+      displayEventTime: false,
       eventResize: updateEventEndOnDB,
       eventDrop: updateEventOnDB,
       eventRender: function(info) {

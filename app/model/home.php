@@ -1,7 +1,19 @@
 <?php
     function getSchedulesCalendar($db) {
         $con = connectDB($db);
-        $sql="SELECT id, client, start, iscanceled, end, Address, EndAddress, IsPaid FROM schedules";
+        $sql="SELECT 
+        (SELECT GROUP_CONCAT(number order by number SEPARATOR ', ')
+        FROM    scheduleCars
+                inner join cars
+                on cars.id = scheduleCars.CarId
+        where scheduleCars.scheduleid=schedules.id) as cars, 
+        (SELECT GROUP_CONCAT(name order by name SEPARATOR ', ')
+        FROM    scheduleWorkers
+                inner join workers
+                on workers.id = scheduleWorkers.WorkerId
+        where scheduleWorkers.scheduleid=schedules.id) as workers, 
+        id, client, start, iscanceled, end, Address, EndAddress, IsPaid FROM schedules";
+        //print_r($sql);
         $result=mysqli_query($con,$sql);
         // Associative arrays
         $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -14,8 +26,18 @@
 
         foreach($schedules as $schedule) {
             $events.=",{id:'".$schedule['id']."',
-                title:'".$schedule['client'].($schedule['IsPaid']?' (pago)':' (por pagar)')."',
-                description:'De:".preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['Address']).'\nPara:'.preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['EndAddress'])."', 
+                title:'[ ".$schedule['cars'].' ] '.$schedule['client'].
+                date_format(date_create_from_format('Y-m-d H:i:s',$schedule['start'])," H:i").
+                date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i").
+                ' ('.$schedule['workers'].' )'.
+                "',
+                description:'Cliente:".$schedule['client'].'\nFuncionários:'.$schedule['workers'].'\nCarga: '.
+                preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['Address']).
+                '\nDescarga: '.
+                preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['EndAddress']).'\n'.
+                date_format(date_create_from_format('Y-m-d H:i:s',$schedule['start'])," H:i").
+                date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i").
+                "', 
                 start:'".$schedule['start']."',  
                 end:'".$schedule['end']."', 
                 url:'?page=schedulesEdit&Id=".$schedule['id']."',
@@ -40,11 +62,15 @@
         if($isCanceled)
             return 'gray';
         if($startDate>date('Y-m-d H:i:s'))
-            return 'green';
+            return '#0077ff';
         if($endDate>date('Y-m-d H:i:s'))
-            return '#28a745';
+            return '#095ab7';
         if(!$isPaid)
-            return 'red';
-        return '#356cc4';
+            return '#5c0a0a';
+        return 'green';
+    }
+
+    function getSccheduleCars($scheduleId) {
+
     }
 ?>
