@@ -412,6 +412,7 @@ nav .page-item a:hover {
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  color: white;
 }
 
 /* The navigation menu links */
@@ -472,4 +473,8 @@ nav .page-item a:hover {
 
 .fc td.fc-today {
   border: none;
+}
+
+.sidenav h5 {
+  padding: 10px 20px 10px 40px;
 }
