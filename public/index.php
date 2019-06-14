@@ -4,6 +4,8 @@
 
     //inclue config file
     require(APPLICATION_PATH.DS.'config'.DS.'config.php');
+    //include model logic for the side nav
+    require(APPLICATION_PATH.DS.'model'.DS.'sideNav.php');
     date_default_timezone_set('Europe/Lisbon');
     $currdatetime = date('d/m/Y h:i');
     $page = get("page","home");

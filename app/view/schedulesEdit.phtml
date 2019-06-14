@@ -12,13 +12,15 @@
                     <label for="start">Início</label>
                     <input type="text" class="form-control" name="start" id="datetimepickerstart"
                         value="<?php echo (!empty($scheduleData["schedule"]["start"]))?date_format(date_create($scheduleData["schedule"]["start"]), 'd/m/Y H:i'):'';?>"
-                        placeholder="Selecione a data e a hora a que começa a mudança" required onchange="carsMultipleRefresh()">
+                        placeholder="Selecione a data e a hora a que começa a mudança" required>
                 </div>
                 <div class="form-group">
-                    <label for="end">Fim</label>
-                    <input type="text" class="form-control" name="end" id="datetimepickerend"
-                        value="<?php echo (!empty($scheduleData["schedule"]["end"]))?date_format(date_create($scheduleData["schedule"]["end"]), 'd/m/Y H:i'):'';?>"
-                        placeholder="Selecione a data e a hora a que termina a mudança">
+                    <label for="duration">Duração(h)</label>
+                    <input type="number" class="form-control" name="duration" id="duration"
+                        value="<?php echo(!empty($scheduleData["schedule"]["end"]))?differenceInHours($scheduleData["schedule"]["start"],$scheduleData["schedule"]["end"]):'';?>"
+                        placeholder="Introduza a duração prevista"
+                        required
+                    >
                 </div>
                 <div class="form-group">
                     <label for="address">Morada de carga</label>
@@ -36,7 +38,7 @@
                 <div class="form-group">
                     <label for="nif">NIF</label>
                     <input type="number" class="form-control" name="nif" id="nif" value="<?php echo (!empty($scheduleData["schedule"]["nif"]))?$scheduleData["schedule"]["nif"]:'';?>"
-                        placeholder="Introduza o NIF" required>
+                        placeholder="Introduza o NIF">
                 </div>
                 <div class="form-group">
                     <label for="cars">Carros</label>
@@ -65,19 +67,37 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="notes">Notas</label>
+                <label for="notes">Notas</label>
                     <textarea class="form-control" name="notes" id="notes"
                         placeholder="Introduza as suas notas"><?php echo (!empty($scheduleData["schedule"]["notes"]))?$scheduleData["schedule"]["notes"]:'';?></textarea>
                 </div>
                 <div class="checkbox">
-                    <label style="font-size: 2.5em">
-                    <input onchange="autosubmit('schedulesubmit');" type="checkbox" class="custom-control-input" name="ispaid" id="ispaid"<?php echo (!empty($scheduleData["schedule"]["ispaid"])?'checked':'')?>>
-                    <span class="cr"><i class="cr-icon fas fa-euro-sign"></i></span>
-                    Pago
-            </label>
-        </div>
+                    <label style="font-size: 1.5em">
+                        <input onchange="autosubmit('schedulesubmit');" type="checkbox" 
+                            class="custom-control-input" name="ispaid" id="ispaid"
+                            <?php echo (!empty($scheduleData["schedule"]["ispaid"])?'checked':'')?>
+                        >
+                        <span class="cr"><i class="cr-icon fas fa-euro-sign"></i></span>
+                        Pago
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label style="font-size: 1.5em">
+                        <input onchange="autosubmit('schedulesubmit');" type="checkbox" 
+                            class="custom-control-input" name="isclosed" id="isclosed"
+                            <?php 
+                                echo (!empty($scheduleData["schedule"]["isclosed"])?'checked disabled':'');
+                            ?>
+                        >
+                        <span class="cr"><i class="cr-icon fas fa-check"></i></span>
+                        Terminou
+                    </label>
+                </div>
             </div>
         </div>
+        <input type="hidden" name="wasclosed" 
+            value="<?php echo $scheduleData["schedule"]["isclosed"];?>"
+        >
         <button id="schedulesubmit" type="submit" class="btn btn-primary">Guardar</button>
     </form>
-</div>
+</div>"

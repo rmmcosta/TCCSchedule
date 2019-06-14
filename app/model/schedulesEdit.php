@@ -54,12 +54,12 @@
             $query = "insert into schedules(start,end,address,endaddress,client,nif,ispaid,notes) values(STR_TO_DATE('"
             .$scheduleData["start"]."','%d/%m/%Y %H:%i'),STR_TO_DATE('"
             .$scheduleData["end"]."','%d/%m/%Y %H:%i'),'"
-            .$scheduleData["address"]."','"
-            .$scheduleData["endaddress"]."','"
-            .$scheduleData["client"]."','"
-            .$scheduleData["nif"]."',"
+            .trim($scheduleData["address"])."','"
+            .trim($scheduleData["endaddress"])."','"
+            .trim($scheduleData["client"])."','"
+            .trim($scheduleData["nif"])."',"
             .($scheduleData["ispaid"]=='on'?1:0).",'"
-            .$scheduleData["notes"]."');";
+            .trim($scheduleData["notes"])."');";
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
@@ -85,15 +85,18 @@
         $con = connectDB($db);
         $query='';
         if(isset($scheduleData) && !empty($scheduleData)){
+            if($scheduleData["wasclosed"]!=1) {
+                $scheduleData["end"] = date("d/m/Y H:i");
+            }
             $query = "update schedules set start=STR_TO_DATE('"
             .$scheduleData["start"]."','%d/%m/%Y %H:%i'),end=STR_TO_DATE('"
             .$scheduleData["end"]."','%d/%m/%Y %H:%i'),address='"
-            .$scheduleData["address"]."', notes='"
-            .$scheduleData["notes"]."', nif='"
-            .$scheduleData["nif"]."', endaddress='"
-            .$scheduleData["endaddress"]."', ispaid="
+            .trim($scheduleData["address"])."', notes='"
+            .trim($scheduleData["notes"])."', nif='"
+            .trim($scheduleData["nif"])."', endaddress='"
+            .trim($scheduleData["endaddress"])."', ispaid="
             .($scheduleData["ispaid"]=='on'?1:0).", client='"
-            .$scheduleData["client"]."' where id =".$scheduleData["id"].";";
+            .trim($scheduleData["client"])."' where id =".$scheduleData["id"].";";
         }
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
@@ -117,6 +120,19 @@
     }
 
     function createOrUpdateschedule($scheduleData,$db) {
+        //calculates the end date time according to the start date and the duration
+        if(!empty($scheduleData['start']) && !empty($scheduleData['duration'])) {
+            $startDate = date_create_from_format('d/m/Y H:i',$scheduleData['start']);
+            $scheduleData['end'] = 
+            date_add(
+                date_create_from_format('d/m/Y H:i',$scheduleData['start']), 
+                date_interval_create_from_date_string(
+                    $scheduleData['duration'].' hours'
+                )
+            )->format('d/m/Y H:i');
+        }
+        //print_r('identificador:'.$scheduleData['id']);
+        
         if(empty($scheduleData['id'])) {
             createschedule($scheduleData,$db);
         } else {
@@ -144,6 +160,15 @@
         if(!empty($con)) {
             mysqli_close($con);
         }
+
+        //is the schedule closed?
+        if(!empty($schedule['end'])) {
+            $currdatetime = getCurrDatetime();
+            if(differenceInSeconds($schedule['end'],$currdatetime)>0) {
+                $schedule['isclosed'] = true;
+            }
+        }
+        
         return $schedule;
     }
 
@@ -229,7 +254,7 @@
         return $workers;
     }
 
-    if(isset($_POST)){
+    if(isset($_POST)&&!empty($_POST)){
         createOrUpdateschedule($_POST,$db);
     }
 

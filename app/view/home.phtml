@@ -1,25 +1,4 @@
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <?php
-    echo '<h5>'.date('Y-m-d').'</h5>';
-  ?>
-  <ul>
-  <?php
-    $workers = getWorkersAndScheduleCars(date('d/m/Y'),$db);
-    foreach($workers as $worker){
-      echo '<li>[ '.(empty($worker['cars'])?'-':$worker['cars']).' ] '.$worker['name'].'</li>';
-    }
-  ?>
-  </ul>
-</div>
 
-<!-- Use any element to open the sidenav -->
-<div class="sidenav-open">
-  <span onclick="openNav()"><i class="fas fa-angle-double-left"></i></span>
-</div>
-
-<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
-<div id="main">
   <div class="alert alert-success alert-dismissible fade" role="alert">
       Mudança atualizada com <strong>sucesso</strong>!
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +14,6 @@
   <div id='calendar-container' class="mb-5">
       <div id='calendar'></div>
   </div>
-</div> 
 
 <style>
   .btn-group {
@@ -46,17 +24,6 @@
   }
 </style>
 <script>
-    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-    function openNav() {
-      document.getElementById("mySidenav").style.width = "20%";
-      $("#calendar").addClass('calendar-short');
-    }
-    
-    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-    function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
-      $("#calendar").removeClass('calendar-short');
-    }
   function updateEventOnDB(info) {
     var startDate = moment(info.event.start).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');
     var endDate = moment(info.event.end).tz('Europe/Lisbon').format('YYYY-MM-DD HH:mm:ss');

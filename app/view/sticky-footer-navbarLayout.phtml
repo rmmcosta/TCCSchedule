@@ -84,6 +84,75 @@
         </nav>
     </header>
 
+<!--side nav-->
+<div id="mySidenav" class="sidenav">
+    <input name="currentworkerid" id="currentworkerid" type="hidden">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <?php
+    echo '<h5>'.date('Y-m-d').'</h5>';
+  ?>
+  <ul>
+  <?php
+    $sideworkers = getWorkersAndScheduleCars(date('d/m/Y'),$db);
+    foreach($sideworkers as $sideworker){
+      echo '<li onclick="refreshWorkerId('.$sideworker['id'].')" data-toggle="modal" data-target="#workersModal">'.$sideworker['name'].''.(empty($sideworker['cars'])?'':'<ul><li>'.$sideworker['cars'].'</li></ul>').'</li>';
+    }
+  ?>
+  </ul>
+</div>
+
+<!-- Use any element to open the sidenav -->
+<div class="sidenav-open">
+  <span onclick="openNav()"><i class="fas fa-angle-double-left"></i></span>
+</div>
+<script>
+    /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "20%";
+      $("#calendar").addClass('div-short');
+      $('#main').addClass('div-short');
+    }
+    
+    /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+      $("#calendar").removeClass('div-short');
+      $('#main').removeClass('div-short');
+    }
+
+    function refreshWorkerId(clickedWorkerId) {
+        $("#currentworkerid").val(clickedWorkerId);
+        console.log(clickedWorkerId);
+    }
+</script>
+<!--end of the side nav-->
+
+<!-- modal for the workers-->
+<!-- Modal -->
+<div class="modal fade" id="workersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end of the modal -->
+
+
+<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+<div id="main">
     <!-- Begin page content -->
     <main role="main" class="flex-shrink-0">
         <div class="container">
@@ -108,7 +177,7 @@
             <?php include($main_content); ?>
         </div>
     </main>
-
+</div>
     <footer class="footer mt-auto py-3 fixed-bottom">
         <div class="container">
             <span>&copy Transportadora do Campo Santana</span>

@@ -9,6 +9,7 @@
             or email like '%".$search."%'
             ORDER BY name 
             limit $linecount offset ".$listpage*$linecount.";";
+    //print_r($sql);
     $result=mysqli_query($con,$sql);
     // Associative arrays
     $allRows=mysqli_fetch_all($result,MYSQLI_ASSOC);
@@ -21,6 +22,7 @@
              or phone like '%".$search."%'
              or email like '%".$search."%'
             ;";
+    //print_r($sql);
     $result=mysqli_query($con,$sql);
     $count = mysqli_fetch_row($result)[0];
     mysqli_free_result($result);

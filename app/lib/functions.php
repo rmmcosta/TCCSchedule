@@ -30,4 +30,19 @@
         }
         return false;
     }
+
+    function differenceInHours($startdate,$enddate){
+        $diff = differenceInSeconds($startdate,$enddate)/3600;
+        return $diff;
+    }
+
+    function differenceInSeconds($startdate,$enddate){
+        $diff = strtotime($enddate)-strtotime($startdate);
+        return $diff;
+    }
+
+    function getCurrDatetime() {
+        $currdatetime = date('Y-m-d H:i:s', time());
+        return $currdatetime;
+    }
 ?>

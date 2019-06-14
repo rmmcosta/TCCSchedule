@@ -51,13 +51,18 @@ $(document).ready(function($) {
         workersMultipleRefresh();
     });
 
+    $("#duration").change(function(){
+        carsMultipleRefresh();
+        workersMultipleRefresh();
+    });
+
     // Material Select Initialization
     $('#cars-multipleselect').multiselect();
 
     $('#workers-multipleselect').multiselect();
 
     //ajax refreshes
-    function carsMultipleRefresh() {
+    var carsMultipleRefresh = function() {
         var ajaxRequest;  // The variable that makes Ajax possible!
         
         try {
@@ -93,9 +98,13 @@ $(document).ready(function($) {
         // Now get the value (the start date and end date) from user and pass it to
         // server script.
             
-        var datetimeStart = document.getElementById('datetimepickerstart').value;
-        var datetimeEnd = document.getElementById('datetimepickerend').value;
-        var queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
+        const datetimeStart = document.getElementById('datetimepickerstart').value;
+        const momentDateTimeStart = moment(datetimeStart, 'DD/MM/YYYY HH:mm');
+        const durationInHours = document.getElementById('duration').value;        
+        const datetimeEnd = momentDateTimeStart
+                        .add(durationInHours, 'hours').format('DD/MM/YYYY HH:mm');
+
+        const queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
         var result = findGetParameter('Id');
         if(result.exists){
             queryString+='&Id='+result.value;
@@ -140,9 +149,13 @@ $(document).ready(function($) {
         // Now get the value (the start date and end date) from user and pass it to
         // server script.
             
-        var datetimeStart = document.getElementById('datetimepickerstart').value;
-        var datetimeEnd = document.getElementById('datetimepickerend').value;
-        var queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
+        const datetimeStart = document.getElementById('datetimepickerstart').value;
+        const momentDateTimeStart = moment(datetimeStart, 'DD/MM/YYYY HH:mm');
+        const durationInHours = document.getElementById('duration').value;        
+        const datetimeEnd = momentDateTimeStart
+                        .add(durationInHours, 'hours').format('DD/MM/YYYY HH:mm');
+
+        const queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
         var result = findGetParameter('Id');
         if(result.exists){
             queryString+='&Id='+result.value;
