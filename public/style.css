@@ -441,20 +441,20 @@ nav .page-item a:hover {
 }
 
 .sidenav>ul>li {
-  background-color: lightsteelblue;
-  color: darkblue;
+  background-color: #06f;
+  color: white;
   border-radius: 0 5px 5px 0;
   padding: 5px 5px 5px 10px;
   margin-bottom: 5px;
   margin-right: 2px;
-  border-left: 5px solid blueviolet;
+  border-left: 5px solid #04f;
   
 }
 
 .sidenav>ul>li:hover {
-  background-color: blueviolet;
-  color: lightblue;
-  border-left: 5px solid lightblue;
+  background-color: white;
+  color: #04f;
+  border-left: 5px solid #06f;
   cursor: pointer;  
 }
 
