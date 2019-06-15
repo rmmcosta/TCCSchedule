@@ -104,7 +104,7 @@ $(document).ready(function($) {
         const datetimeEnd = momentDateTimeStart
                         .add(durationInHours, 'hours').format('DD/MM/YYYY HH:mm');
 
-        const queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
+        var queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
         var result = findGetParameter('Id');
         if(result.exists){
             queryString+='&Id='+result.value;
@@ -155,7 +155,7 @@ $(document).ready(function($) {
         const datetimeEnd = momentDateTimeStart
                         .add(durationInHours, 'hours').format('DD/MM/YYYY HH:mm');
 
-        const queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
+        var queryString = "?datetimeStart=" + datetimeStart + "&datetimeEnd=" + datetimeEnd;
         var result = findGetParameter('Id');
         if(result.exists){
             queryString+='&Id='+result.value;

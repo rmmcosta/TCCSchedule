@@ -11,7 +11,7 @@
     $con = connectDB($db);
 
     $sql="
-            SELECT  schedules.id,
+            SELECT  schedules.id id,
                     client,
                     start,
                     (
@@ -30,6 +30,7 @@
                                     and scheduleid = schedules.id
                         )
                     and ifnull(schedules.iscanceled,0) = 0
+                    and end > sysdate()
             order by
                     start
         ;";
@@ -63,19 +64,19 @@
         <tbody>';
     
     foreach($schedulesbyworker AS $schedulebyworker) {
-        $displayList.='<tr class="table-row" data-href="?page=schedulesEdit&Id='.$schedulebyworker['Id'].'">';
+        $displayList.='<tr class="table-row" data-href="?page=schedulesEdit&Id='.$schedulebyworker['id'].'">';
         $displayList.='<td>'.$schedulebyworker['start'].'</td>';
         $displayList.='<td>'.$schedulebyworker['client'].'</td>';
         $displayList.='<td>'.$schedulebyworker['cars'].'</td>';
         $displayList.='<td>'.$schedulebyworker['address'].'</td>';
         $displayList.='<td>'.$schedulebyworker['endaddress'].'</td>';
-        $displayList.='<td class="text-danger"><a title="Remover da Mudança" onclick="return confirm(\'Tem a certeza que pretende remover este trabalhador da Mudança?\')" href="?page=schedulesCancel&origin=schedules&Id='.$schedulebyworker['id'].'"><i class="text-danger fas fa-minus"></i></a></td>';
+        $displayList.='<td class="text-danger"><a class="removeWorker" title="Remover da Mudança" data-id='.$schedulebyworker['id'].'><i class="text-danger fas fa-minus"></i></a></td>';
         $displayList.='</tr>';
     }
 
     $displayList.= '</tbody></table>';
     if(empty($schedulesbyworker)){
-        $displayList.='<tr><td><div class="blank-slate">Não há Mudanças disponíveis</div></td></tr>';
+        $displayList.='<tr><td><div class="blank-slate">Não tem Mudanças</div></td></tr>';
     }
     $displayList.='</div>';
 
