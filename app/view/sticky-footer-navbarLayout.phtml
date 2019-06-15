@@ -95,7 +95,7 @@
   <?php
     $sideworkers = getWorkersAndScheduleCars(date('d/m/Y'),$db);
     foreach($sideworkers as $sideworker){
-      echo '<li onclick="refreshWorkerId('.$sideworker['id'].')" data-toggle="modal" data-target="#workersModal">'.$sideworker['name'].''.(empty($sideworker['cars'])?'':'<ul><li>'.$sideworker['cars'].'</li></ul>').'</li>';
+      echo '<li onclick="refreshWorkerId('.$sideworker['id'].',\''.$sideworker['name'].'\')" data-toggle="modal" data-target="#workersModal">'.$sideworker['name'].''.(empty($sideworker['cars'])?'':'<ul><li>'.$sideworker['cars'].'</li></ul>').'</li>';
     }
   ?>
   </ul>
@@ -120,30 +120,76 @@
       $('#main').removeClass('div-short');
     }
 
-    function refreshWorkerId(clickedWorkerId) {
+    function refreshWorkerId(clickedWorkerId,workerName) {
+        //console.log(workerName);
         $("#currentworkerid").val(clickedWorkerId);
-        console.log(clickedWorkerId);
+        $('#workersModalLabel').text(workerName);
+        //console.log(clickedWorkerId);
+        schedulesByWorkerRefresh();
+    }
+
+    function schedulesByWorkerRefresh() {
+        var ajaxRequest;  // The variable that makes Ajax possible!
+        
+        try {
+        // Opera 8.0+, Firefox, Safari
+        ajaxRequest = new XMLHttpRequest();
+        }catch (e) {
+        // Internet Explorer Browsers
+        try {
+            ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
+        }catch (e) {
+            try{
+                ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            }catch (e){
+                // Something went wrong
+                alert("O Browser não está a responder!");
+                return false;
+            }
+        }
+        }
+        
+        // Create a function that will receive data 
+        // sent from the server and will update
+        // div section in the same page.
+            
+        ajaxRequest.onreadystatechange = function(){
+        if(ajaxRequest.readyState == 4){
+            var ajaxDisplay = document.getElementById('schedulesByWorker');
+            console.log(ajaxRequest.responseText);
+            ajaxDisplay.innerHTML = ajaxRequest.responseText;
+        }
+        }
+        
+        // Now get the value (the start date and end date) from user and pass it to
+        // server script.
+            
+        const workerid = document.getElementById('currentworkerid').value;
+        const queryString = "?workerid=" + workerid;
+        ajaxRequest.open("GET", "getSchedulesByWorker.php" + queryString, true);
+        ajaxRequest.send(null); 
     }
 </script>
 <!--end of the side nav-->
 
 <!-- modal for the workers-->
 <!-- Modal -->
-<div class="modal fade" id="workersModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="workersModal" tabindex="-1" role="dialog" aria-labelledby="workersModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="workersModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+            <div id="schedulesByWorker">
+            </div>
+            <div id="availableSchedules">
+            </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
