@@ -4,7 +4,7 @@
     const DS = DIRECTORY_SEPARATOR;
 
     //inclue config file
-    require(APPLICATION_PATH.DS.'config'.DS.'config.php');
+    require_once(APPLICATION_PATH.DS.'config'.DS.'config.php');
 
     $datetimeStart = $_GET['datetimeStart'];
     $datetimeEnd = $_GET['datetimeEnd'];

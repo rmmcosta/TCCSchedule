@@ -3,9 +3,9 @@
     const DS = DIRECTORY_SEPARATOR;
 
     //inclue config file
-    require(APPLICATION_PATH.DS.'config'.DS.'config.php');
+    require_once(APPLICATION_PATH.DS.'config'.DS.'config.php');
     //include model logic for the side nav
-    require(APPLICATION_PATH.DS.'model'.DS.'sideNav.php');
+    require_once(APPLICATION_PATH.DS.'model'.DS.'sideNav.php');
     date_default_timezone_set('Europe/Lisbon');
     $currdatetime = date('d/m/Y h:i');
     $page = get("page","home");
@@ -17,8 +17,8 @@
     if(file_exists($model)) { 
         require_once($model);
         if($page=='resume'){
-            require(APPLICATION_PATH.DS.'model'.DS.'charts1.php');
-            require(APPLICATION_PATH.DS.'model'.DS.'charts2.php');
+            require_once(APPLICATION_PATH.DS.'model'.DS.'charts1.php');
+            require_once(APPLICATION_PATH.DS.'model'.DS.'charts2.php');
         }
     }
 

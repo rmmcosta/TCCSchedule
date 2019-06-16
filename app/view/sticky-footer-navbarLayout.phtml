@@ -85,13 +85,13 @@
     </header>
 
 <!--side nav-->
-<div id="mySidenav" class="sidenav">
+<div id="workersSidenav" class="sidenav">
     <input name="currentworkerid" id="currentworkerid" type="hidden">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <?php
     echo '<h5>'.date('Y-m-d').'</h5>';
   ?>
-  <ul>
+  <ul id="ulWorkers">
   <?php
     $sideworkers = getWorkersAndScheduleCars(date('d/m/Y'),$db);
     foreach($sideworkers as $sideworker){
@@ -108,14 +108,14 @@
 <script>
     /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
     function openNav() {
-      document.getElementById("mySidenav").style.width = "20%";
+      document.getElementById("workersSidenav").style.width = "20%";
       $("#calendar").addClass('div-short');
       $('#main').addClass('div-short');
     }
     
     /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
     function closeNav() {
-      document.getElementById("mySidenav").style.width = "0";
+      document.getElementById("workersSidenav").style.width = "0";
       $("#calendar").removeClass('div-short');
       $('#main').removeClass('div-short');
     }
@@ -181,6 +181,9 @@
                                 //console.log( "success" );
                                 schedulesByWorkerRefresh();
                                 availableSchedulesRefresh();
+                                refreshLiWorkers();
+                                var eventSource = window.jscalendar.getEventSourceById('scheduleevents');
+                                eventSource.refetch();
                             })
                             .fail(function() {
                                 //console.log( "error" );
@@ -255,6 +258,9 @@
                                 //console.log( "success" );
                                 schedulesByWorkerRefresh();
                                 availableSchedulesRefresh();
+                                refreshLiWorkers();
+                                var eventSource = window.jscalendar.getEventSourceById('scheduleevents');
+                                eventSource.refetch();
                             })
                             .fail(function() {
                                 //console.log( "error" );
@@ -275,6 +281,16 @@
         const queryString = "?workerid=" + workerid;
         ajaxRequest.open("GET", "getAvailableSchedules.php" + queryString, true);
         ajaxRequest.send(null); 
+    }
+
+    function refreshLiWorkers() {
+        //console.log('refreshLiWorkers');
+        $.ajax("getLiWorkers.php")
+            .done(function(data){
+                //console.log("done");
+                //console.log(data);
+                $("#ulWorkers").html(data);
+            });
     }
 </script>
 <!--end of the side nav-->
@@ -360,15 +376,6 @@
     <script src='../app/packages/bootstrap/main.js'></script>
     <script src='../app/packages/daygrid/main.js'></script>
     <script src="script.js"></script>
-    <script>
-    $(document).ready(function(){
-                    $("#ajaxtest").click(function(){
-                        console.log("clicaste");
-                        var jqxhr=$.ajax("insertScheduleworker.1.php");
-                        console.log(jqxhr);
-                    });
-                });
-    </script>
 </body>
 
 </html>

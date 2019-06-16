@@ -22,30 +22,29 @@
         mysqli_free_result($result);
 
         mysqli_close($con);
-        $events = "{}";
+        $events = array();
 
         foreach($schedules as $schedule) {
-            $events.=",{id:'".$schedule['id']."',
-                title:'[ ".$schedule['cars'].' ] '.$schedule['client'].
+            $e = array();
+            $e['id']=$schedule['id'];
+            $e['title']='['.$schedule['cars'].'] '.$schedule['client'].' '.
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['start'])," H:i").
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i").
-                ' ('.$schedule['workers'].' )'.
-                "',
-                description:'Cliente:".$schedule['client'].'\nFuncionários:'.$schedule['workers'].'\nCarga: '.
+                ' ('.$schedule['workers'].' )';
+            $e['description']='Cliente:'.$schedule['client'].'\nFuncionários:'.$schedule['workers'].'\nCarga: '.
                 preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['Address']).
                 '\nDescarga: '.
                 preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['EndAddress']).'\n'.
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['start'])," H:i").
-                date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i").
-                "', 
-                start:'".$schedule['start']."',  
-                end:'".$schedule['end']."', 
-                url:'?page=schedulesEdit&Id=".$schedule['id']."',
-                color: '".getColor($schedule['start'],$schedule['end'],$schedule['iscanceled'],$schedule['IsPaid'])."',
-                editable:".getIsEditable($schedule['start'],$schedule['end'],$schedule['iscanceled'])."
-            }";
+                date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i"); 
+            $e['start']=$schedule['start']; 
+            $e['end']=$schedule['end'];
+            $e['url']='?page=schedulesEdit&Id='.$schedule['id'];
+            $e['color']=getColor($schedule['start'],$schedule['end'],$schedule['iscanceled'],$schedule['IsPaid']);
+            $e['editable']=getIsEditable($schedule['start'],$schedule['end'],$schedule['iscanceled']);
+            array_push($events, $e);
         }
-        return $events;
+        return json_encode($events);
     }
 
     function getIsEditable($startDate, $endDate, $isCanceled) {
