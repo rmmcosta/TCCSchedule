@@ -86,8 +86,8 @@
         $con = connectDB($db);
         $query='';
         if(isset($scheduleData) && !empty($scheduleData)){
-            print_r($scheduleData["end"]);
-            if($scheduleData["wasclosed"]!=1) {
+            //print_r($scheduleData["end"]);
+            if($scheduleData["wasclosed"]!=1 && $scheduleData["isclosed"]=='on') {
                 $scheduleData["end"] = date("d/m/Y H:i");
             }
             $query = "update schedules set start=STR_TO_DATE('"
@@ -136,6 +136,7 @@
                     $scheduleData['duration'].' seconds'
                 )
             )->format('d/m/Y H:i');
+            //print_r($scheduleData['end']);
         }
         //print_r('identificador:'.$scheduleData['id']);
         
