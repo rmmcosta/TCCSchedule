@@ -61,9 +61,9 @@
         if($isCanceled)
             return 'gray';
         if($startDate>date('Y-m-d H:i:s'))
-            return '#0077ff';
+            return '#111251';
         if($endDate>date('Y-m-d H:i:s'))
-            return '#095ab7';
+            return '#0077ff';
         if(!$isPaid)
             return '#5c0a0a';
         return 'green';

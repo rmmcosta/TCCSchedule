@@ -12,7 +12,10 @@
       </button>
   </div>
   <div id='calendar-container' class="mb-5">
-      <div id='calendar'></div>
+    <div>
+      <ul id="colorlegend"><li style="color:green;">Pago</li><li style="color:#5c0a0a;">Por pagar</li><li style="color:#0077ff;">A decorrer</li><li style="color:#111251;">Futura</li><li style="color:gray;">Cancelada</li></ul>
+    </div>
+    <div id='calendar'></div>
   </div>
 
 <style>
@@ -67,12 +70,12 @@
                     }
               },
       error: function(jqXHR, textStatus, errorThrown ) {
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
+        //console.log(jqXHR);
+        //console.log(textStatus);
+        //console.log(errorThrown);
       },
       complete: function() {
-        console.log('ajax finished');
+        //console.log('ajax finished');
       }
     });
   }

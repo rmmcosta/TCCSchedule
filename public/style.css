@@ -544,3 +544,19 @@ nav .page-item a:hover {
 h1 a {
   font-size: .5em;
 }
+
+#colorlegend {
+  margin-top: 38px;
+}
+
+#colorlegend li {
+  float: left;
+  margin-left: 20px;
+}
+
+#colorlegend {
+  width: 100%;
+  top: 15px;
+  position: absolute;
+  left: -45px;
+}
