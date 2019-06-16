@@ -376,6 +376,18 @@
     <script src='../app/packages/bootstrap/main.js'></script>
     <script src='../app/packages/daygrid/main.js'></script>
     <script src="script.js"></script>
+    <script>
+        $().ready(function(){
+            $('#printLink').click(function(){
+                const id = $(this).attr("data-id");
+                //console.log(id);
+                printExternal(id);
+            });
+            function printExternal(id) {
+                window.location = "schedulePrint.phtml?id="+id;
+            }
+        });
+    </script>
 </body>
 
 </html>

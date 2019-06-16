@@ -540,3 +540,7 @@ nav .page-item a:hover {
   max-height: 400px;
   overflow: auto;
 }
+
+h1 a {
+  font-size: .5em;
+}

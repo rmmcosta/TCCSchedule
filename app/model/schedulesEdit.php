@@ -51,13 +51,14 @@
         $con = connectDB($db);
         $query='';
         if(isset($scheduleData) && !empty($scheduleData)){
-            $query = "insert into schedules(start,end,address,endaddress,client,nif,ispaid,notes) values(STR_TO_DATE('"
+            $query = "insert into schedules(start,end,address,endaddress,client,nif,phonenumber,ispaid,notes) values(STR_TO_DATE('"
             .$scheduleData["start"]."','%d/%m/%Y %H:%i'),STR_TO_DATE('"
             .$scheduleData["end"]."','%d/%m/%Y %H:%i'),'"
             .trim($scheduleData["address"])."','"
             .trim($scheduleData["endaddress"])."','"
             .trim($scheduleData["client"])."','"
-            .trim($scheduleData["nif"])."',"
+            .trim($scheduleData["nif"])."','"
+            .trim($scheduleData["phone"])."',"
             .($scheduleData["ispaid"]=='on'?1:0).",'"
             .trim($scheduleData["notes"])."');";
         }
@@ -94,7 +95,8 @@
             .$scheduleData["end"]."','%d/%m/%Y %H:%i'),address='"
             .trim($scheduleData["address"])."', notes='"
             .trim($scheduleData["notes"])."', nif='"
-            .trim($scheduleData["nif"])."', endaddress='"
+            .trim($scheduleData["nif"])."', phonenumber='"
+            .trim($scheduleData["phone"])."', endaddress='"
             .trim($scheduleData["endaddress"])."', ispaid="
             .($scheduleData["ispaid"]=='on'?1:0).", client='"
             .trim($scheduleData["client"])."' where id =".$scheduleData["id"].";";
@@ -148,7 +150,7 @@
         $con = connectDB($db);
         $query='';
         if(isset($id) && !empty($id)){
-            $query = "Select id, start, end, address, notes, endaddress, client, nif, ispaid from schedules where id =".$id.";";
+            $query = "Select id, start, end, address, notes, endaddress, client, nif, ispaid, phonenumber from schedules where id =".$id.";";
         }
         if(!empty($query) && !empty($con)) {
             $result = mysqli_query($con,$query);
@@ -180,7 +182,7 @@
         $con = connectDB($db);
         $query='';
         if(isset($id) && !empty($id)){
-            $query = "Select CarId from scheduleCars where ScheduleId =".$id.";";
+            $query = "Select CarId, number from scheduleCars inner join cars on cars.id = scheduleCars.carid where ScheduleId =".$id.";";
         }
         if(!empty($query) && !empty($con)) {
             $result = mysqli_query($con,$query);
@@ -203,7 +205,7 @@
         $con = connectDB($db);
         $query='';
         if(isset($id) && !empty($id)){
-            $query = "Select WorkerId from scheduleWorkers where ScheduleId =".$id.";";
+            $query = "Select WorkerId, name from scheduleWorkers inner join workers on workers.id = scheduleWorkers.workerid where ScheduleId =".$id.";";
         }
         if(!empty($query) && !empty($con)) {
             $result = mysqli_query($con,$query);

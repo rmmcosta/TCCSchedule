@@ -1,6 +1,8 @@
 <div class="justify-content-center align-items-center mb-5">
     <form action="?page=schedulesEdit" method="post">
-        <h1 data-spy="affix" data-offset-top="500">Nova Mudança</h1>
+        <h1 data-spy="affix" data-offset-top="500">
+            <?php echo empty($_GET['Id'])?'Nova Mudança':'Ver/Editar Mudança <a id="printLink" href="#" data-id="'.$_GET['Id'].'"><i class="fas fa-print"></i>Imprimir</a>' ?>
+        </h1>
         <div class="row">
             <div class="col justify-content-center align-items-center">
                 <div class="form-group">
@@ -39,6 +41,11 @@
                     <label for="nif">NIF</label>
                     <input type="number" class="form-control" name="nif" id="nif" value="<?php echo (!empty($scheduleData["schedule"]["nif"]))?$scheduleData["schedule"]["nif"]:'';?>"
                         placeholder="Introduza o NIF">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo (!empty($scheduleData["schedule"]["phonenumber"]))?$scheduleData["schedule"]["phonenumber"]:'';?>"
+                        placeholder="Introduza o telefone">
                 </div>
                 <div class="form-group">
                     <label for="cars">Carros</label>

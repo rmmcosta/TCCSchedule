@@ -7,6 +7,82 @@
     require_once(APPLICATION_PATH.DS.'config'.DS.'config.php');
     require_once(APPLICATION_PATH.DS.'model'.DS.'schedulesEdit.php');
 ?>
-<div class="justify-content-center align-items-center mb-5">
+<!-- Custom styles for this template -->
+<link href="style.css" rel="stylesheet">
+<!-- fontawesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+<div id="content">
+    <?php
+        $id = $_GET['id'];
+        $schedule = getschedule($id,$db);
+        echo '<h1>'.$schedule['client'].'</h1>';
+        echo '<hr/>';
 
-</div>
+        echo '<br/>';
+        echo '<b>Contacto: </b>'
+        .(empty($schedule['phonenumber'])?' - ':$schedule['phonenumber'])
+        .'  |  <b>Início: </b>'
+        .$schedule['start']
+        .'  |  <b>Fim: </b>'
+        .$schedule['end'];
+
+        echo '<br/>';
+        echo '<br/>';
+        echo '<b>Carga: </b>'.$schedule['address'];
+
+        echo '<br/>';
+        echo '<br/>';
+        echo '<b>Descarga: </b>'.$schedule['endaddress'];
+
+        $cars = getScheduleCars($id,$db);
+        $printCars = '<b>Carros: </b>';
+        $i=0;
+        foreach($cars as $car){
+            $printCars.=($i>0?', ':'').$car['number'];
+            $i++;
+        }
+
+        echo '<br/>';
+        echo '<br/>';
+        echo $printCars;
+
+        $workers = getScheduleWorkers($id,$db);
+        $printWorkers = '<b>Trabalhadores: </b>';
+        $i=0;
+        foreach($workers as $worker){
+            $printWorkers.=($i>0?', ':'').$worker['name'];
+            $i++;
+        }
+
+        echo '<br/>';
+        echo '<br/>';
+        echo $printWorkers;
+
+        echo '<hr/>';
+        echo '</div>';
+        echo '<br/>';
+        echo '<a href="#" onclick="window.history.back();"><i class="fas fa-undo"></i>Voltar</a> <a href="#" id="printlink"><i class="fas fa-check"></i>Confirmar</a>';
+    ?>
+<script src="../app/scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $().ready(function(){
+        $("#printlink").click(function(){
+            var content = document.getElementById('content').innerHTML;
+            var mywindow = window.open('', 'Print', 'height=600,width=800');
+
+            mywindow.document.write('<html><head><title>Print</title>');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(content);
+            mywindow.document.write('</body></html>');
+
+            mywindow.document.close();
+            mywindow.focus()
+            mywindow.print();
+            mywindow.close();
+            return true;
+        });
+    });
+</script>
