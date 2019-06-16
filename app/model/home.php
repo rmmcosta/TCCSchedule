@@ -31,10 +31,10 @@
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['start'])," H:i").
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i").
                 ' ('.$schedule['workers'].' )';
-            $e['description']='Cliente:'.$schedule['client'].'\nFuncionários:'.$schedule['workers'].'\nCarga: '.
+            $e['description']='Cliente:'.$schedule['client'].' Funcionários:'.$schedule['workers'].' Carga: '.
                 preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['Address']).
-                '\nDescarga: '.
-                preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['EndAddress']).'\n'.
+                ' Descarga: '.
+                preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $schedule['EndAddress']).''.
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['start'])," H:i").
                 date_format(date_create_from_format('Y-m-d H:i:s',$schedule['end'])," - H:i"); 
             $e['start']=$schedule['start']; 

@@ -14,7 +14,7 @@
                  OR
                  date(schedules.End) = date(dates.currdate)
     ) workers, 
-    (	select count(1)
+    (	select count(distinct scheduleWorkers.workerid)
         from schedules
              inner join scheduleWorkers
              on scheduleWorkers.ScheduleId = schedules.id
@@ -32,7 +32,7 @@
                  OR
                  date(schedules.End) = date(dates.currdate)
     ) cars, 
-    (	select count(1)
+    (	select count(distinct scheduleCars.carid)
         from schedules
              inner join scheduleCars
              on scheduleCars.ScheduleId = schedules.id

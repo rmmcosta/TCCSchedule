@@ -85,6 +85,7 @@
         $con = connectDB($db);
         $query='';
         if(isset($scheduleData) && !empty($scheduleData)){
+            print_r($scheduleData["end"]);
             if($scheduleData["wasclosed"]!=1) {
                 $scheduleData["end"] = date("d/m/Y H:i");
             }
@@ -98,6 +99,7 @@
             .($scheduleData["ispaid"]=='on'?1:0).", client='"
             .trim($scheduleData["client"])."' where id =".$scheduleData["id"].";";
         }
+        print_r($query);
         if(!empty($query) && !empty($con)) {
             $execute = mysqli_query($con,$query);
             if (!$execute)
@@ -122,12 +124,14 @@
     function createOrUpdateschedule($scheduleData,$db) {
         //calculates the end date time according to the start date and the duration
         if(!empty($scheduleData['start']) && !empty($scheduleData['duration'])) {
+            //print_r($scheduleData['duration']);
+            $scheduleData['duration']=round($scheduleData['duration']*3600,0);
             $startDate = date_create_from_format('d/m/Y H:i',$scheduleData['start']);
             $scheduleData['end'] = 
             date_add(
                 date_create_from_format('d/m/Y H:i',$scheduleData['start']), 
                 date_interval_create_from_date_string(
-                    $scheduleData['duration'].' hours'
+                    $scheduleData['duration'].' seconds'
                 )
             )->format('d/m/Y H:i');
         }
